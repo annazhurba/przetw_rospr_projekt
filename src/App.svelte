@@ -1,11 +1,12 @@
 <script>
-	export let name;
+	import Buttons from "./Buttons.svelte";
+	let state = 0;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1>Draw, I Guess</h1>
 </main>
+<Buttons/>
 
 <style>
 	main {
@@ -17,7 +18,6 @@
 
 	h1 {
 		color: #ff3e00;
-		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
 	}
