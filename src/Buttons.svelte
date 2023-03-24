@@ -11,13 +11,18 @@
         document.getElementById("createButton").style.display = "none";
         document.getElementById("logoImg").style.display = "none";
         document.getElementById("joinFormDiv").style.display = "block";
+    }
+
+    function handleSubmitJoinForm(){
+        //redirecting to drawing page or loading page
         bondzio.eat({
-            roomName: "tymektest",
-            password: "1234",
+            roomName: document.getElementById("roomName").value,
+            password: document.getElementById("password").value,
             action: 0 
         }).then(room => {
             console.log(room); 
-        })
+        });
+
     }
 </script>
 <img src="images/Untitled.svg" alt="Logo" id="logoImg"/>
@@ -33,7 +38,7 @@
     <input type="password" placeholder="Password" id="roomPassword"/>
     <p>Enter your nickname</p>
     <input type="text" placeholder="Nickname" id="playerNickname"/>
-    <p><input type="button" value="Join" id="joinFormButton"/></p>
+    <p><input type="button" value="Join" id="joinFormButton" on:click={() => handleSubmitJoinForm()}/></p>
 </div>
 
 <style>
