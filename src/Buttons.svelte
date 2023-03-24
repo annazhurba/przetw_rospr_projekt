@@ -1,10 +1,16 @@
 <script>
     import Bondzio from "bondz.io";
     let bondzio = new Bondzio();
-    //function handleHost(){
+    var state = 0; //0 - initial elements show; 1 - log in elements show; 2- create room elements show
+    function handleHost(){
         
-    //}
-    function handleLogIn(){
+    }
+    function handleJoin(){
+        state = 1;
+        document.getElementById("loginButton").style.display = "none";
+        document.getElementById("createButton").style.display = "none";
+        document.getElementById("logoImg").style.display = "none";
+        document.getElementById("joinFormDiv").style.display = "block";
         bondzio.eat({
             roomName: "tymektest",
             password: "1234",
@@ -13,18 +19,22 @@
             console.log(room); 
         })
     }
-    import HostDialog from "./HostDialog.svelte";
-    let showModal = false;
 </script>
-<img src="images/Untitled.svg" alt="Logo"/>
+<img src="images/Untitled.svg" alt="Logo" id="logoImg"/>
 <div id="buttons">
-    <button type="button" class="button" on:click={() => handleLogIn()}>Join existing room</button>
-    <button type="button" class="button" on:click={() => (showModal = true)}>Create new room</button>
+    <button type="button" class="startButtons" id="loginButton" on:click={() => handleJoin()}>Join existing room</button>
+    <button type="button" class="startButtons" id="createButton" on:click={() => handleHost()}>Create new room</button>
 </div>
 
-<HostDialog bind:showModal>
-    <h2 slot="header">Create new room</h2>
-</HostDialog>
+<div id="joinFormDiv" style="display:none">
+    <p>Enter the room name</p>
+    <input type="text" placeholder="Room name" id="roomName"/>
+    <p>Enter the password</p>
+    <input type="password" placeholder="Password" id="roomPassword"/>
+    <p>Enter your nickname</p>
+    <input type="text" placeholder="Nickname" id="playerNickname"/>
+    <p><input type="button" value="Join" id="joinFormButton"/></p>
+</div>
 
 <style>
     #buttons { 
@@ -36,5 +46,13 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
+    }
+    #joinFormDiv {
+        align-items: center;
+		max-width: 300px;
+		margin: 0 auto;
+    }
+    #joinFormButton {
+        margin-left: 30%;
     }
 </style>
