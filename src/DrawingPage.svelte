@@ -25,10 +25,7 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         let coord = { x: 0, y: 0 };
-        document.addEventListener('mousedown', start);
-        document.addEventListener('mouseup', stop);
-        window.addEventListener('resize', resize);
-        resize();
+
         function resize() {
             ctx.canvas.width = window.innerWidth*0.7;
             ctx.canvas.height = window.innerHeight*0.8;
@@ -57,6 +54,10 @@
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
+        document.addEventListener('mousedown', start);
+        document.addEventListener('mouseup', stop);
+        window.addEventListener('resize', resize);
+        resize();
     </script>
 </body>
 
