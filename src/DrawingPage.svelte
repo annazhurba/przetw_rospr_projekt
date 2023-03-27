@@ -17,7 +17,6 @@
         function resize() {
             ctx.canvas.width = window.innerWidth*0.7;
             ctx.canvas.height = window.innerHeight*0.8;
-            alert(`Width: ${ctx.canvas.width}, height: ${ctx.canvas.height}`)
         }
 
         function reposition(event) {
