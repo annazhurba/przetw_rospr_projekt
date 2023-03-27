@@ -10,25 +10,10 @@
     }
     //handling canvas
 
-</script>
-<body height="100%">
-    <canvas id="canvas" style="border:3px solid #ff3e00;"/>
-    <div id="chatDiv">
-        <!--chat-->
-    </div>
-    <p style="display: none;" id="guessingText">Nickname is drawing!</p>
-    <div id="hintText">
-        <p style="display: block;" id="drawingText">You draw!</p>
-        <p style="display: block;" id="drawingHeader">THING</p>
-    </div>
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
+        var canvas 
+        var ctx
         let coord = { x: 0, y: 0 };
-        document.addEventListener('mousedown', start);
-        document.addEventListener('mouseup', stop);
-        window.addEventListener('resize', resize);
-        resize();
+
         function resize() {
             ctx.canvas.width = window.innerWidth*0.7;
             ctx.canvas.height = window.innerHeight*0.8;
@@ -57,7 +42,26 @@
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
-    </script>
+        addEventListener("DOMContentLoaded", (event) => {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext('2d');
+            resize();
+        })
+        document.addEventListener('mousedown', start);
+        document.addEventListener('mouseup', stop);
+        window.addEventListener('resize', resize);
+</script>
+
+<body height="100%">
+    <canvas id="canvas" style="border:3px solid #ff3e00;"/>
+    <div id="chatDiv">
+        <!--chat-->
+    </div>
+    <p style="display: none;" id="guessingText">Nickname is drawing!</p>
+    <div id="hintText">
+        <p style="display: block;" id="drawingText">You draw!</p>
+        <p style="display: block;" id="drawingHeader">THING</p>
+    </div>
 </body>
 
 <style>
