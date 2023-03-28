@@ -50,6 +50,9 @@
         document.addEventListener('mousedown', start);
         document.addEventListener('mouseup', stop);
         window.addEventListener('resize', resize);
+        function clearCanvas(){
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
 </script>
 
 <body height="100%">
@@ -59,6 +62,7 @@
     </div>
     <p style="display: none;" id="guessingText">Nickname is drawing!</p>
     <div id="hintText">
+        <button id="clearButton" on:click={() => clearCanvas()}>Clear</button>
         <p style="display: block;" id="drawingText">You draw!</p>
         <p style="display: block;" id="drawingHeader">THING</p>
     </div>
@@ -74,7 +78,7 @@
         border: 1px;
         border-color: black;
         border-style: solid;
-        width: 27%;
+        width: 25%;
         height: 100%;
     }
     
@@ -89,23 +93,31 @@
 
     #hintText{
         position: relative;
-        top: 85%;
-        left: 30%;
-        bottom: auto;
+        bottom: 0;
+        top:90%;
+        left: 0;
+        right: auto;
+        width:70%;
+        height: 10%;
     }
 
     #drawingText {
         position: relative;
-        top: 30%;
+        left: 20%;
+        width: 10%;
     }
 
     #drawingHeader{
         position: relative;
-        top: 50%;
-        right: 0.2%;
-        font-size: x-large;
+        left: 60%;
+        bottom:120%;
+        
+        width: 10%;
+        font-size:xx-large;
         font-weight: bold;
     }
     
-
+    #clearButton{
+        float: right;
+    }
 </style>
