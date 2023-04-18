@@ -2,8 +2,8 @@
     import Bondzio from "bondz.io/lib";
 
 
-	var messages = [{author: "Test", content: "Some stuff"},
-	{author: "Another", content: "Cool story"}];
+	var messages = [{nickname: "Test", content: "Some stuff"},
+	{nickname: "Another", content: "Cool story"}];
 	let bondzio = new Bondzio();
 	bondzio.eat({
 	roomName: "test",
@@ -12,16 +12,38 @@
 	})
         bondzio.connect("Testowy")
 
+        let callbacks = {
+        onDraw: (arg) => console.log(arg),
+        onConnect: (arg) => console.log(arg),
+        onNewWord: (arg) => console.log(arg),
+        onChatMessage: (arg) => {
+		messages.push(arg)
+		messages = messages
+		}, 
+        onRoomConfirm: (arg) => console.log(arg),
+        onCorrectGuess: () => console.log("Guessed correctly"),
+        onOpponentGuess:(arg) => console.log(arg)
+        }
+
+	bondzio.socketSetup(callbacks)
+
+	const handleSend = () => {
+            let input = document.getElementById("input").value;
+	    bondzio.sendMessage(input);
+	    messages.push({nickname: "Me", content: input});
+	}
+
 </script>
 
 <div id="Messages">
 	{#each messages as message}
 		<div class="message">
-		<h2>{message.author}</h2>
+		<h2>{message.nickname}</h2>
 		<p>{message.content}</p>
 		</div>
 	{/each}
-        <button on:click={bondzio.sendMessage("Hej!!!")}> </button>
+	<input id="input"/>
+        <button on:click={handleSend}> </button>
 </div>
 
 <style>
