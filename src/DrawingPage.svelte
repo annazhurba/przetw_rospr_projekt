@@ -1,4 +1,5 @@
 <script>
+    import ChatFrame from "./ChatFrame.svelte";
     var isDrawing = false; //0 - guessing player, 1 - drawing player
     function loadDrawingPage(){
         if (isDrawing){ //TODO where do we know if the player is g or d from???
@@ -55,7 +56,7 @@
 <body height="100%">
     <canvas id="canvas" style="border:3px solid #ff3e00;"/>
     <div id="chatDiv">
-        <!--chat-->
+        <ChatFrame />
     </div>
     <p style="display: none;" id="guessingText">Nickname is drawing!</p>
     <div id="hintText">
