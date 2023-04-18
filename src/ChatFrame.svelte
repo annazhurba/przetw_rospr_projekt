@@ -1,6 +1,16 @@
 <script>
+    import Bondzio from "bondz.io/lib";
+
+
 	var messages = [{author: "Test", content: "Some stuff"},
 	{author: "Another", content: "Cool story"}];
+	let bondzio = new Bondzio();
+	bondzio.eat({
+	roomName: "test",
+	password: '1234',
+	action: 0 
+	})
+        bondzio.connect("Testowy")
 
 </script>
 
@@ -11,7 +21,7 @@
 		<p>{message.content}</p>
 		</div>
 	{/each}
-
+        <button on:click={bondzio.sendMessage("Hej!!!")}> </button>
 </div>
 
 <style>
@@ -23,6 +33,6 @@
     }
 
     .message:nth-child(2n){
-	background: rgba(30, 30, 30, 0.5);
+background: rgba(30, 30, 30, 0.5);
     }
 </style>
