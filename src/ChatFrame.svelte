@@ -31,6 +31,8 @@
             let input = document.getElementById("input").value;
 	    bondzio.sendMessage(input);
 	    messages.push({nickname: "Me", content: input});
+	    messages = messages;
+            document.getElementById("input").value = "";
 	}
 
 </script>
@@ -43,7 +45,7 @@
 		</div>
 	{/each}
 	<input id="input"/>
-        <button on:click={handleSend}> </button>
+        <button on:click={handleSend}> Send </button>
 </div>
 
 <style>
