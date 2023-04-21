@@ -1,20 +1,22 @@
 <script>
     import ChatFrame from "./ChatFrame.svelte";
-    var isDrawing = false; //0 - guessing player, 1 - drawing player
+    var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
     function loadDrawingPage(){
-        if (isDrawing){ //TODO where do we know if the player is g or d from???
-            document.getElementById("drawingText").style.display = "block";
-            document.getElementById("drawingHeader").style.display = "block";
+        if (isDrawingPlayer){ //TODO where do we know if the player is g or d from???
+            document.getElementById("hintText").style.display = "block";
+            document.getElementById("guessingText").style.display = "none";
         } else {
             document.getElementById("guessingText").style.display = "block";
+            document.getElementById("hintText").style.display = "none";
         }
     }
+
     //handling canvas
 
-        var canvas 
-        var ctx
+        var canvas; 
+        var ctx;
         let coord = { x: 0, y: 0 };
 
         function resize() {
@@ -52,12 +54,15 @@
             ctx.stroke();
         }
         addEventListener("DOMContentLoaded", (event) => {
+            loadDrawingPage();
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext('2d');
             resize();
         })
-        document.addEventListener('mousedown', start);
-        document.addEventListener('mouseup', stop);
+        if (isDrawingPlayer){
+            document.addEventListener('mousedown', start);
+            document.addEventListener('mouseup', stop);
+        }
         window.addEventListener('resize', resize);
         function clearCanvas(){
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -77,12 +82,12 @@
     <div id="chatDiv">
         <ChatFrame />
     </div>
-    <p style="display: none;" id="guessingText">Nickname is drawing!</p>
-    <div id="hintText">
+    <p style="display:none;" id="guessingText">Nickname is drawing!</p>
+    <div style="display:none;" id="hintText">
         <button id="clearButton" on:click={() => clearCanvas()}>Clear</button>
         <button id="eraseButton" on:click={() => handleErase()}>{eraseButtonName}</button>
-        <p style="display: block;" id="drawingText">You draw!</p>
-        <p style="display: block;" id="drawingHeader">THING</p>
+        <p id="drawingText">You draw!</p>
+        <p id="drawingHeader">THING</p>
     </div>
 </body>
 
