@@ -1,6 +1,8 @@
 <script>
     import ChatFrame from "./ChatFrame.svelte";
     var isDrawing = false; //0 - guessing player, 1 - drawing player
+    var isErasing = false;
+    var eraseButtonName = "Erase";
     function loadDrawingPage(){
         if (isDrawing){ //TODO where do we know if the player is g or d from???
             document.getElementById("drawingText").style.display = "block";
@@ -35,9 +37,15 @@
 
         function draw(event){
             ctx.beginPath();
-            ctx.lineWidth = 2;
             ctx.lineCap = 'round';
-            ctx.strokeStyle = '#000000';
+            if (!isErasing){
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#000000';
+            } else {
+                ctx.lineWidth = 15;
+                ctx.strokeStyle = '#FFFFFF';
+
+            }
             ctx.moveTo(coord.x, coord.y);
             reposition(event);
             ctx.lineTo(coord.x, coord.y);
@@ -54,6 +62,14 @@
         function clearCanvas(){
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
+        function handleErase(){
+            isErasing = !isErasing;
+            if (isErasing){
+                eraseButtonName = "Draw";
+            } else {
+                eraseButtonName = "Erase";
+            }
+        }
 </script>
 
 <body height="100%">
@@ -64,6 +80,7 @@
     <p style="display: none;" id="guessingText">Nickname is drawing!</p>
     <div id="hintText">
         <button id="clearButton" on:click={() => clearCanvas()}>Clear</button>
+        <button id="eraseButton" on:click={() => handleErase()}>{eraseButtonName}</button>
         <p style="display: block;" id="drawingText">You draw!</p>
         <p style="display: block;" id="drawingHeader">THING</p>
     </div>
@@ -120,5 +137,12 @@
     
     #clearButton{
         float: right;
+    }
+
+    #eraseButton{
+        float:right;
+        position: relative;
+        top:50%;
+        right: -4%;
     }
 </style>
