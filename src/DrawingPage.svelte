@@ -32,7 +32,7 @@
         function reposition(event) {
             coord.x = event.clientX - canvas.offsetLeft;
             coord.y = event.clientY - canvas.offsetTop;
-            bondzio.sendDraw(coord.x, coord.y);
+            bondzio.sendDraw(coord);
         }
 
         function start(event){
@@ -107,7 +107,10 @@
         bondzio.connect(nickname)
 
         let callbacks = {
-        onDraw: (arg) => console.log(arg),
+        onDraw: (arg) => {
+            coord = arg;
+            draw();
+        },
         onConnect: (arg) => console.log(arg),
         onNewWord: (arg) => console.log(arg),
         onChatMessage: (arg) => {
