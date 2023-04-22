@@ -41,11 +41,9 @@
 
     function handleSubmitCreateForm(){
         //create new room
-        bind:document.getElementById("roomName").value={roomName};
-        bind:document.getElementById("roomPassword").value={roomPassword};
         bondzio.eat({
-            roomName: document.getElementById("roomName").value,
-            password: document.getElementById("roomPassword").value,
+            roomName: roomName,
+            password: roomPassword,
             action: 1 
         }).then(room => {
             callback();
