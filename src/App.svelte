@@ -17,7 +17,7 @@
 	<main>
 		<h1>Draw, I Guess</h1>
 	</main>
-	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} nickname={nickname}/>
+	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname}/>
 {/if}
 {#if dpVisible}
 	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname}/>
