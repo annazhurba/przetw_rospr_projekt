@@ -1,7 +1,11 @@
 <script>
+    import { bind } from "svelte/internal";
+
     //import App from "./App.svelte";
     export let bondzio;
     export let callback;  // todoS
+    export let roomName;
+    export let roomPassword;
     var state = 0; //0 - initial elements show; 1 - log in elements show; 2- create room elements show
 
     function handleHost(){
@@ -10,7 +14,7 @@
         document.getElementById("loginButton").style.display = "none";
         document.getElementById("createButton").style.display = "none";
         document.getElementById("logoImg").style.display = "none";
-        document.getElementById("roomIdentificationDiv").style.display = "block";
+        document.getElementById("roomDetailsDiv").style.display = "block";
         document.getElementById("joinFormButton").style.display = "none";
     }
     function handleJoin(){
@@ -18,7 +22,7 @@
         document.getElementById("loginButton").style.display = "none";
         document.getElementById("createButton").style.display = "none";
         document.getElementById("logoImg").style.display = "none";
-        document.getElementById("roomIdentificationDiv").style.display = "block";
+        document.getElementById("roomDetailsDiv").style.display = "block";
         document.getElementById("createFormButton").style.display = "none";
     }
 
@@ -36,12 +40,14 @@
 
     function handleSubmitCreateForm(){
         //create new room
+        bind:document.getElementById("roomName").value={roomName};
+        bind:document.getElementById("roomPassword").value={roomPassword};
         bondzio.eat({
             roomName: document.getElementById("roomName").value,
             password: document.getElementById("roomPassword").value,
             action: 1 
         }).then(room => {
-            //callback();
+            callback();
         });
     }
 </script>
@@ -51,11 +57,11 @@
     <button type="button" class="startButtons" id="createButton" on:click={() => handleHost()}>Create new room</button>
 </div>
 
-<div id="roomIdentificationDiv" style="display:none">
+<div id="roomDetailsDiv" style="display:none">
     <p>Enter the room name</p>
-    <input type="text" placeholder="Room name" id="roomName"/>
+    <input type="text" placeholder="Room name" id="roomName" bind:value={roomName}/>
     <p>Enter the password</p>
-    <input type="password" placeholder="Password" id="roomPassword"/>
+    <input type="password" placeholder="Password" id="roomPassword" bind:value={roomPassword}/>
     <p>Enter your nickname</p>
     <input type="text" placeholder="Nickname" id="playerNickname"/>
     <p><input type="button" value="Join" id="joinFormButton" on:click={() => handleSubmitJoinForm()}/></p>
@@ -73,7 +79,7 @@
         margin-left: auto;
         margin-right: auto;
     }
-    #roomIdentificationDiv {
+    #roomDetailsDiv {
         align-items: center;
 		max-width: 300px;
 		margin: 0 auto;

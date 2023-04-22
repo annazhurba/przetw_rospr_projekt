@@ -1,15 +1,26 @@
 <script>
-	import Buttons from "./Buttons.svelte";
 	import Bondzio from "bondz.io/lib";
+	import Buttons from "./Buttons.svelte";
+    import DrawingPage from "./DrawingPage.svelte";
 	let bondzio = new Bondzio();
-	let state = 0;
-	const changeState = () => {state = 2};
+	var state = 0;
+	var homePageVisible = true;
+	var dpVisible = false;
+    var roomName;
+	var roomPassword;
+	const changeState = () => {state = 1, homePageVisible = false, dpVisible = true};
+	
 </script>
 
-<main>
-	<h1>Draw, I Guess</h1>
-</main>
-<Buttons bondzio={bondzio} callback={changeState}/>
+{#if homePageVisible}
+	<main>
+		<h1>Draw, I Guess</h1>
+	</main>
+	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword}/>
+{/if}
+{#if dpVisible}
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword}/>
+{/if}
 
 <style>
 	main {

@@ -1,5 +1,9 @@
 <script>
+    import { onMount } from "svelte";
+
     export let bondzio;
+    export let roomName;
+    export let roomPassword;
     var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
@@ -54,10 +58,11 @@
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
-        addEventListener("DOMContentLoaded", (event) => {
+    
+        onMount(async () => {
             bondzio.eat({
-                roomName: document.getElementById("roomName").value,
-                password: document.getElementById("password").value,
+                roomName: "test",
+                password: '1234',
                 action: 0 
             }).then(room => {
                 console.log(room); 
@@ -66,7 +71,7 @@
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext('2d');
             resize();
-        })
+        });
         if (isDrawingPlayer){
             document.addEventListener('mousedown', start);
             document.addEventListener('mouseup', stop);
