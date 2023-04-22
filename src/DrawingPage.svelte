@@ -72,6 +72,8 @@
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext('2d');
             resize();
+            let scrollbox = document.getElementById("Messages");
+            scrollbox.scrollTop = scrollbox.scrollHeight
         });
         if (isDrawingPlayer){
             document.addEventListener('mousedown', start);
@@ -126,6 +128,7 @@
 	    messages = messages;
             document.getElementById("input").value = "";
 	}
+
 
 </script>
 
@@ -213,6 +216,13 @@
         position: relative;
         top: 30%;
         right: -6%;
+    }
+
+    #Messages{
+        scroll-behavior: smooth;
+        overflow-y: scroll;
+        border: 0.1rem solid black;
+        height:100%;
     }
 
     .message {
