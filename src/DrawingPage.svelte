@@ -59,6 +59,22 @@
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
+
+        function renderDraw(prevCoords){
+            ctx.beginPath();
+            ctx.lineCap = 'round';
+            if (!isErasing){
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#000000';
+            } else {
+                ctx.lineWidth = 15;
+                ctx.strokeStyle = '#FFFFFF';
+
+            }
+            ctx.moveTo(prevCoords.x, prevCoords.y);
+            ctx.lineTo(coord.x, coord.y);
+            ctx.stroke();
+        }
     
         onMount(async () => {
             bondzio.eat({
@@ -108,8 +124,9 @@
 
         let callbacks = {
         onDraw: (arg) => {
+            prevCoords = coord;
             coord = arg;
-            draw();
+            renderDraw(prevCoords);
         },
         onConnect: (arg) => console.log(arg),
         onNewWord: (arg) => console.log(arg),
