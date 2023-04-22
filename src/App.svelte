@@ -8,6 +8,7 @@
 	var dpVisible = false;
     var roomName;
 	var roomPassword;
+	var nickname;
 	const changeState = () => {state = 1, homePageVisible = false, dpVisible = true};
 	
 </script>
@@ -16,10 +17,10 @@
 	<main>
 		<h1>Draw, I Guess</h1>
 	</main>
-	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword}/>
+	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} nickname={nickname}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname}/>
 {/if}
 
 <style>

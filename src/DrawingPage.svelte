@@ -4,6 +4,7 @@
     export let bondzio;
     export let roomName;
     export let roomPassword;
+    export let nickname;
     var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
@@ -61,8 +62,8 @@
     
         onMount(async () => {
             bondzio.eat({
-                roomName: "test",
-                password: '1234',
+                roomName: roomName,
+                password: roomPassword,
                 action: 0 
             }).then(room => {
                 console.log(room); 
@@ -97,11 +98,11 @@
 	{nickname: "Another", content: "Cool story"}];
 	//let bondzio = new Bondzio();
 	bondzio.eat({
-	roomName: "test",
-	password: '1234',
+	roomName: roomName,
+	password: roomPassword,
 	action: 0 
 	})
-        bondzio.connect("Testowy")
+        bondzio.connect(nickname)
 
         let callbacks = {
         onDraw: (arg) => console.log(arg),

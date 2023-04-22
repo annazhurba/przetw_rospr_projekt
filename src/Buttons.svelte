@@ -6,6 +6,7 @@
     export let callback;  // todoS
     export let roomName;
     export let roomPassword;
+    export let nickname;
     var state = 0; //0 - initial elements show; 1 - log in elements show; 2- create room elements show
 
     function handleHost(){
@@ -63,7 +64,7 @@
     <p>Enter the password</p>
     <input type="password" placeholder="Password" id="roomPassword" bind:value={roomPassword}/>
     <p>Enter your nickname</p>
-    <input type="text" placeholder="Nickname" id="playerNickname"/>
+    <input type="text" placeholder="Nickname" id="playerNickname" bind:value={nickname}/>
     <p><input type="button" value="Join" id="joinFormButton" on:click={() => handleSubmitJoinForm()}/></p>
     <p><input type="button" value="Create" id="createFormButton" on:click={() => handleSubmitCreateForm()}/></p>
 </div>
