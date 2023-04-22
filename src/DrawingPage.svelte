@@ -179,6 +179,8 @@
 <style>
     canvas{
         position: absolute;
+        width: 1920px;
+        height: 1080px;
     }
 
     #chatDiv{
