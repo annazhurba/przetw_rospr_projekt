@@ -124,7 +124,7 @@
 
         let callbacks = {
         onDraw: (arg) => {
-            prevCoords = coord;
+            let prevCoords = coord;
             coord = arg;
             renderDraw(prevCoords);
         },
