@@ -1,28 +1,48 @@
 <script>
-    import Bondzio from "bondz.io";
-    let bondzio = new Bondzio();
+    //import App from "./App.svelte";
+    export let bondzio;
+    export let callback;  // todoS
     var state = 0; //0 - initial elements show; 1 - log in elements show; 2- create room elements show
+
     function handleHost(){
-        
+        //create new room implementation
+        state = 2;
+        document.getElementById("loginButton").style.display = "none";
+        document.getElementById("createButton").style.display = "none";
+        document.getElementById("logoImg").style.display = "none";
+        document.getElementById("roomIdentificationDiv").style.display = "block";
+        document.getElementById("joinFormButton").style.display = "none";
     }
     function handleJoin(){
         state = 1;
         document.getElementById("loginButton").style.display = "none";
         document.getElementById("createButton").style.display = "none";
         document.getElementById("logoImg").style.display = "none";
-        document.getElementById("joinFormDiv").style.display = "block";
+        document.getElementById("roomIdentificationDiv").style.display = "block";
+        document.getElementById("createFormButton").style.display = "none";
     }
 
     function handleSubmitJoinForm(){
+        //console.log(document.getElementById("roomName").value);
         //redirecting to drawing page or loading page
         bondzio.eat({
             roomName: document.getElementById("roomName").value,
-            password: document.getElementById("password").value,
+            password: document.getElementById("roomPassword").value,
             action: 0 
         }).then(room => {
-            console.log(room); 
+            callback();
         });
+    }
 
+    function handleSubmitCreateForm(){
+        //create new room
+        bondzio.eat({
+            roomName: document.getElementById("roomName").value,
+            password: document.getElementById("roomPassword").value,
+            action: 1 
+        }).then(room => {
+            //callback();
+        });
     }
 </script>
 <img src="images/Untitled.svg" alt="Logo" id="logoImg"/>
@@ -31,7 +51,7 @@
     <button type="button" class="startButtons" id="createButton" on:click={() => handleHost()}>Create new room</button>
 </div>
 
-<div id="joinFormDiv" style="display:none">
+<div id="roomIdentificationDiv" style="display:none">
     <p>Enter the room name</p>
     <input type="text" placeholder="Room name" id="roomName"/>
     <p>Enter the password</p>
@@ -39,6 +59,7 @@
     <p>Enter your nickname</p>
     <input type="text" placeholder="Nickname" id="playerNickname"/>
     <p><input type="button" value="Join" id="joinFormButton" on:click={() => handleSubmitJoinForm()}/></p>
+    <p><input type="button" value="Create" id="createFormButton" on:click={() => handleSubmitCreateForm()}/></p>
 </div>
 
 <style>
@@ -52,12 +73,15 @@
         margin-left: auto;
         margin-right: auto;
     }
-    #joinFormDiv {
+    #roomIdentificationDiv {
         align-items: center;
 		max-width: 300px;
 		margin: 0 auto;
     }
     #joinFormButton {
+        margin-left: 30%;
+    }
+    #createFormButton {
         margin-left: 30%;
     }
 </style>

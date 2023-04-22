@@ -1,5 +1,5 @@
 <script>
-    import ChatFrame from "./ChatFrame.svelte";
+    export let bondzio;
     var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
@@ -27,6 +27,7 @@
         function reposition(event) {
             coord.x = event.clientX - canvas.offsetLeft;
             coord.y = event.clientY - canvas.offsetTop;
+            bondzio.sendDraw(coord.x, coord.y);
         }
 
         function start(event){
@@ -54,6 +55,13 @@
             ctx.stroke();
         }
         addEventListener("DOMContentLoaded", (event) => {
+            bondzio.eat({
+                roomName: document.getElementById("roomName").value,
+                password: document.getElementById("password").value,
+                action: 0 
+            }).then(room => {
+                console.log(room); 
+            });
             loadDrawingPage();
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext('2d');
@@ -75,12 +83,59 @@
                 eraseButtonName = "Erase";
             }
         }
+
+    //chat
+    //import Bondzio from "bondz.io/lib";
+
+
+	var messages = [{nickname: "Test", content: "Some stuff"},
+	{nickname: "Another", content: "Cool story"}];
+	//let bondzio = new Bondzio();
+	bondzio.eat({
+	roomName: "test",
+	password: '1234',
+	action: 0 
+	})
+        bondzio.connect("Testowy")
+
+        let callbacks = {
+        onDraw: (arg) => console.log(arg),
+        onConnect: (arg) => console.log(arg),
+        onNewWord: (arg) => console.log(arg),
+        onChatMessage: (arg) => {
+		messages.push(arg)
+		messages = messages
+		}, 
+        onRoomConfirm: (arg) => console.log(arg),
+        onCorrectGuess: () => console.log("Guessed correctly"),
+        onOpponentGuess:(arg) => console.log(arg)
+        }
+
+	bondzio.socketSetup(callbacks)
+
+	const handleSend = () => {
+            let input = document.getElementById("input").value;
+	    bondzio.sendMessage(input);
+	    messages.push({nickname: "Me", content: input});
+	    messages = messages;
+            document.getElementById("input").value = "";
+	}
+
 </script>
 
 <body height="100%">
     <canvas id="canvas" style="border:3px solid #ff3e00;"/>
     <div id="chatDiv">
-        <ChatFrame />
+        <div id="Messages">
+            {#each messages as message}
+                <div class="message">
+                <h2>{message.nickname}</h2>
+                <p>{message.content}</p>
+                </div>
+            {/each}
+            <input id="input"/>
+            <button on:click={handleSend}> Send </button>
+        </div>
     </div>
     <p style="display:none;" id="guessingText">Nickname is drawing!</p>
     <div style="display:none;" id="hintText">
@@ -90,6 +145,7 @@
         <p id="drawingHeader">THING</p>
     </div>
 </body>
+
 
 <style>
     canvas{
@@ -142,12 +198,25 @@
     
     #clearButton{
         float: right;
+        position: relative;
+        top: -50%;
     }
 
     #eraseButton{
         float:right;
         position: relative;
-        top:50%;
-        right: -4%;
+        top: 30%;
+        right: -6%;
+    }
+
+    .message {
+	    text-align: center;
+	    background: rgba(100, 100, 100, 0.5);
+	    padding: 0.5rem;
+	    border-radius: 1rem;
+    }
+
+    .message:nth-child(2n){
+        background: rgba(30, 30, 30, 0.5);
     }
 </style>

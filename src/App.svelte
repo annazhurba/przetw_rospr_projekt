@@ -1,12 +1,15 @@
 <script>
 	import Buttons from "./Buttons.svelte";
+	import Bondzio from "bondz.io/lib";
+	let bondzio = new Bondzio();
 	let state = 0;
+	const changeState = () => {state = 2};
 </script>
 
 <main>
 	<h1>Draw, I Guess</h1>
 </main>
-<Buttons/>
+<Buttons bondzio={bondzio} callback={changeState}/>
 
 <style>
 	main {
