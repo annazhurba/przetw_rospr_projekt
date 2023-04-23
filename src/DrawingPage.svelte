@@ -5,7 +5,8 @@
     export let roomName;
     export let roomPassword;
     export let nickname;
-    var word;
+    export let category;
+    var word ="ng";
     var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
@@ -86,7 +87,7 @@
                 console.log(room); 
             });
             if (isDrawingPlayer == true){
-                word = bondzio.getNewWord("people");
+                word = bondzio.getNewWord(category);
                 //console.log(word);
             }
             loadDrawingPage();
@@ -222,9 +223,9 @@
 
     #drawingHeader{
         position: relative;
-        left: 35vw;
+        left: 30vw;
         bottom:12vh;
-        
+        width: 30vw;
         font-size:xx-large;
         font-weight: bold;
     }

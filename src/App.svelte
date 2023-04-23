@@ -2,14 +2,23 @@
 	import Bondzio from "bondz.io/lib";
 	import Buttons from "./Buttons.svelte";
     import DrawingPage from "./DrawingPage.svelte";
+    import ChooseCategoryDialog from "./ChooseCategoryDialog.svelte";
 	let bondzio = new Bondzio();
 	var state = 0;
 	var homePageVisible = true;
+	var categoryDialogVisible = false;
 	var dpVisible = false;
     var roomName;
 	var roomPassword;
 	var nickname;
-	const changeState = () => {state = 1, homePageVisible = false, dpVisible = true};
+	var category;
+	const changeState = () => {
+		if (state == 0){
+			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
+		} else if (state == 1){
+			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false,console.log("category " + category)
+		}
+	};
 	
 </script>
 
@@ -19,9 +28,13 @@
 	</main>
 	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname}/>
 {/if}
-{#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname}/>
+{#if categoryDialogVisible}
+	<ChooseCategoryDialog callback={changeState} bind:category={category}/>
 {/if}
+{#if dpVisible}
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category}/>
+{/if}
+
 
 <style>
 	main {
