@@ -15,9 +15,13 @@
         if (isDrawingPlayer){ //TODO where do we know if the player is g or d from???
             document.getElementById("hintText").style.display = "block";
             document.getElementById("guessingText").style.display = "none";
+            document.getElementById("sendMessageButton").style.display = "none";
+            document.getElementById("input").style.display = "none";
         } else {
             document.getElementById("guessingText").style.display = "block";
             document.getElementById("hintText").style.display = "none";
+            document.getElementById("sendMessageButton").style.display = "block";
+            document.getElementById("input").style.display = "block";
         }
     }
 
