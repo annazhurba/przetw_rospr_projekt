@@ -6,8 +6,9 @@
     export let roomPassword;
     export let nickname;
     export let category;
+    export let isDrawing;
     var word ="ng";
-    var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
+    var isDrawingPlayer = isDrawing; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
     function loadDrawingPage(){
@@ -198,7 +199,7 @@
     
     #guessingText{ 
         position: relative;
-        top: 85vh;
+        top: 80vh;
         left: 15vw;
         bottom: auto;
         font-size: x-large;

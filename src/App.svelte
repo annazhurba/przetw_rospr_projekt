@@ -12,10 +12,13 @@
 	var roomPassword;
 	var nickname;
 	var category;
+	var isDrawing;
 	const changeState = () => {
-		if (state == 0){
+		if (state == 0 && isDrawing){
 			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
 		} else if (state == 1){
+			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false,console.log("category " + category)
+		} else if (state == 0 && !isDrawing){
 			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false,console.log("category " + category)
 		}
 	};
@@ -26,13 +29,13 @@
 	<main>
 		<h1>Draw, I Guess</h1>
 	</main>
-	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname}/>
+	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawing}/>
 {/if}
 {#if categoryDialogVisible}
 	<ChooseCategoryDialog callback={changeState} bind:category={category}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing}/>
 {/if}
 
 
