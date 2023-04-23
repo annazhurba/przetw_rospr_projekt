@@ -5,6 +5,7 @@
     export let roomName;
     export let roomPassword;
     export let nickname;
+    var word;
     var isDrawingPlayer = true; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
@@ -84,6 +85,10 @@
             }).then(room => {
                 console.log(room); 
             });
+            if (isDrawingPlayer == true){
+                word = bondzio.getNewWord("people");
+                //console.log(word);
+            }
             loadDrawingPage();
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext('2d');
@@ -112,8 +117,7 @@
     //import Bondzio from "bondz.io/lib";
 
 
-	var messages = [{nickname: "Test", content: "Some stuff"},
-	{nickname: "Another", content: "Cool story"}];
+	var messages = [];
 	//let bondzio = new Bondzio();
 	bondzio.eat({
 	roomName: roomName,
@@ -129,7 +133,7 @@
             renderDraw(prevCoords);
         },
         onConnect: (arg) => console.log(arg),
-        onNewWord: (arg) => console.log(arg),
+        onNewWord: (arg) => (word = arg),
         onChatMessage: (arg) => {
 		messages.push(arg)
 		messages = messages
@@ -144,9 +148,10 @@
 	const handleSend = () => {
             let input = document.getElementById("input").value;
 	    bondzio.sendMessage(input);
+        bondzio.guess(input);
 	    messages.push({nickname: "Me", content: input});
 	    messages = messages;
-            document.getElementById("input").value = "";
+        document.getElementById("input").value = "";
 	}
 
 
@@ -163,7 +168,7 @@
                 </div>
             {/each}
             <input id="input"/>
-            <button on:click={handleSend}> Send </button>
+            <button id="sendMessageButton" on:click={handleSend}> Send </button>
         </div>
     </div>
     <p style="display:none;" id="guessingText">Nickname is drawing!</p>
@@ -171,7 +176,7 @@
         <button id="clearButton" on:click={() => clearCanvas()}>Clear</button>
         <button id="eraseButton" on:click={() => handleErase()}>{eraseButtonName}</button>
         <p id="drawingText">You draw!</p>
-        <p id="drawingHeader">THING</p>
+        <p id="drawingHeader">{word}</p>
     </div>
 </body>
 
@@ -179,8 +184,6 @@
 <style>
     canvas{
         position: absolute;
-        width: 1920px;
-        height: 1080px;
     }
 
     #chatDiv{
@@ -188,56 +191,53 @@
         border: 1px;
         border-color: black;
         border-style: solid;
-        width: 25%;
-        height: 100%;
+        width: 25vw;
+        height: 90vh;
     }
     
     #guessingText{ 
         position: relative;
-        top: 85%;
-        left: 25%;
+        top: 85vh;
+        left: 15vw;
         bottom: auto;
         font-size: x-large;
         font-weight: bold;
     }
 
     #hintText{
-        position: relative;
+        position:absolute;
         bottom: 0;
-        top:90%;
+        top:85vh;
         left: 0;
         right: auto;
-        width:70%;
-        height: 10%;
+        width:70vw;
+        height: 10vh;
     }
 
     #drawingText {
         position: relative;
-        left: 20%;
-        width: 10%;
+        left: 20vw;
+        width: 10vw;
     }
 
     #drawingHeader{
         position: relative;
-        left: 60%;
-        bottom:120%;
+        left: 35vw;
+        bottom:12vh;
         
-        width: 10%;
         font-size:xx-large;
         font-weight: bold;
     }
     
     #clearButton{
         float: right;
-        position: relative;
-        top: -50%;
+        background-color: lightgray;
     }
 
     #eraseButton{
         float:right;
-        position: relative;
-        top: 30%;
-        right: -6%;
+        margin-right: 1%;
+        background-color: lightgray;
     }
 
     #Messages{
@@ -245,6 +245,11 @@
         overflow-y: scroll;
         border: 0.1rem solid black;
         height:100%;
+    }
+
+    #sendMessageButton{
+        position: relative;
+        bottom: 0;
     }
 
     .message {
@@ -257,4 +262,5 @@
     .message:nth-child(2n){
         background: rgba(30, 30, 30, 0.5);
     }
+
 </style>
