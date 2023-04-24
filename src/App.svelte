@@ -14,7 +14,6 @@
 	var category;
 	var isDrawing;
 	var isFirstRound = true;
-	var word;
 	var winnerNickname;
 	var exitGame = false;
 	const changeState = () => {
@@ -41,7 +40,7 @@
 	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:word={word} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound}/>
 {/if}
 
 

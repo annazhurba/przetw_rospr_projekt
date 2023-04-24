@@ -8,11 +8,11 @@
     export let nickname;
     export let category;
     export var isDrawing;
-    export let word;
     export let winnerNickname;
     export let exitGame;
     export let callback;
     export let isFirstRound;
+    let word;
 
     let mouseOffFlag = true
 
@@ -154,7 +154,7 @@
             renderDraw();
         },
         onConnect: (arg) => console.log(arg),
-        onNewWord: (arg) => (word = arg),
+        onNewWord: (arg) => console.log("new word"),
         onChatMessage: (arg) => {
 		messages.push(arg)
 		messages = messages
