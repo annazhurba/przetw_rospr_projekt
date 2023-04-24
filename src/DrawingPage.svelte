@@ -32,13 +32,11 @@
             document.getElementById("guessingText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "none";
             document.getElementById("input").style.display = "none";
-            document.getElementById("exitGameButton").style.display = "none";
         } else {
             document.getElementById("guessingText").style.display = "block";
             document.getElementById("hintText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "block";
             document.getElementById("input").style.display = "block";
-            document.getElementById("exitGameButton").style.display = "block";
         }
     }
 
@@ -228,8 +226,8 @@
     
     #guessingText{ 
         position: relative;
-        top: 80vh;
-        left: 15vw;
+        top: 83vh;
+        left: 25vw;
         bottom: auto;
         font-size: x-large;
         font-weight: bold;
@@ -289,7 +287,7 @@
     
     #exitGameButton{
         position: absolute;
-        right: 30vw;
+        left: 5vw;
         bottom: 5vh;
         background-color: #ff3e00;
     }
