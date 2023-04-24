@@ -160,8 +160,20 @@
 		messages = messages
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
-        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true, winnerNickname = nickname, isFirstRound = false, callback()),
-        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false, winnerNickname = arg, isFirstRound = false, callback()),
+        onCorrectGuess: () => {
+            isDrawing = true
+            isDrawingPlayer = true
+            winnerNickname = nickname
+            isFirstRound = false
+            callback()
+        },
+        onOpponentGuess: (arg) => {
+            isDrawing = false 
+            isDrawingPlayer = false
+            winnerNickname = arg
+            isFirstRound = false
+            callback()
+        },
         }
 
 	bondzio.socketSetup(callbacks)
