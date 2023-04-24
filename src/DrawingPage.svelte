@@ -104,13 +104,16 @@
         }
     
         onMount(async () => {
-            bondzio.eat({
-                roomName: roomName,
-                password: roomPassword,
-                action: 0 
-            }).then(room => {
-                console.log(room); 
-            });
+            if (isFirstRound){
+                bondzio.eat({
+                    roomName: roomName,
+                    password: roomPassword,
+                    action: 0 
+                }).then(room => {
+                    console.log(room); 
+                });
+                bondzio.connect(nickname);
+            }
             if (isDrawingPlayer == true){
                 word = bondzio.getNewWord(category);
             }
@@ -140,12 +143,7 @@
         }
 
 	var messages = [];
-	bondzio.eat({
-	roomName: roomName,
-	password: roomPassword,
-	action: 0 
-	})
-        bondzio.connect(nickname)
+	
 
         let callbacks = {
         onDraw: (arg) => {
