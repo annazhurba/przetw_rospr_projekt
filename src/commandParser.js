@@ -18,9 +18,10 @@ const parseArguments = (parsedString) => {
 // }
 export const handleCommand = (commandsDictionary, parsedString) => {
     let parsedCommand = getCommand(parsedString);
+    if(parsedCommand === null) return null;
     let [command, args] = parseArguments(parsedCommand);
     if(commandsDictionary.hasOwnProperty(command)) {
-        commandsDictionary.command(args)
+        commandsDictionary[command](args)
         return parsedCommand
     } else {
         return null;

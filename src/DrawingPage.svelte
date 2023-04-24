@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { handleCommand } from './commandParser'
 
     export let bondzio;
     export let roomName;
@@ -9,6 +10,10 @@
     export let isDrawing;
 
     let mouseOffFlag = true
+
+    const commandsDictionary = {
+        alert: (arg) => alert(arg)
+    }
 
     var word ="ng";
     var isDrawingPlayer = isDrawing; //0 - guessing player, 1 - drawing player
@@ -158,11 +163,16 @@
 	bondzio.socketSetup(callbacks)
 
 	const handleSend = () => {
-            let input = document.getElementById("input").value;
-	    bondzio.sendMessage(input);
+        let input = document.getElementById("input").value;
+        let commandsRes = handleCommand(commandsDictionary, input)
+        if(commandsRes == null) {
+            bondzio.sendMessage(input);
+            messages.push({nickname: "Me", content: input});
+	        messages = messages;
+        }
+	    
         bondzio.guess(input);
-	    messages.push({nickname: "Me", content: input});
-	    messages = messages;
+	    
         document.getElementById("input").value = "";
 	}
 
