@@ -10,6 +10,8 @@
     export let isDrawing;
     export let word;
     export let winnerNickname;
+    export let exitGame;
+    export let callback;
 
     let mouseOffFlag = true
 
@@ -21,20 +23,22 @@
         }
     }
 
-    var isDrawingPlayer = isDrawing; //0 - guessing player, 1 - drawing player
+    var isDrawingPlayer = isDrawing; 
     var isErasing = false;
     var eraseButtonName = "Erase";
     function loadDrawingPage(){
-        if (isDrawingPlayer){ //TODO where do we know if the player is g or d from???
+        if (isDrawingPlayer){ 
             document.getElementById("hintText").style.display = "block";
             document.getElementById("guessingText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "none";
             document.getElementById("input").style.display = "none";
+            document.getElementById("exitGameButton").style.display = "none";
         } else {
             document.getElementById("guessingText").style.display = "block";
             document.getElementById("hintText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "block";
             document.getElementById("input").style.display = "block";
+            document.getElementById("exitGameButton").style.display = "block";
         }
     }
 
@@ -136,12 +140,7 @@
             }
         }
 
-    //chat
-    //import Bondzio from "bondz.io/lib";
-
-
 	var messages = [];
-	//let bondzio = new Bondzio();
 	bondzio.eat({
 	roomName: roomName,
 	password: roomPassword,
@@ -161,8 +160,8 @@
 		messages = messages
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
-        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true, winnerNickname = nickname),
-        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false, winnerNickname = arg),
+        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true, winnerNickname = nickname, callback()),
+        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false, winnerNickname = arg, callback()),
         }
 
 	bondzio.socketSetup(callbacks)
@@ -177,6 +176,11 @@
         }
         document.getElementById("input").value = "";
 	}
+
+    function exitGameButton(){
+        exitGame = true;
+        callback();
+    }
 
 
 </script>
@@ -198,6 +202,7 @@
         </div>
     </div>
     <p style="display:none;" id="guessingText">Nickname is drawing!</p>
+    <button id="exitGameButton" on:click={exitGameButton}>Exit game</button>
     <div style="display:none;" id="hintText">
         <button id="clearButton" on:click={clearCanvas}> Clear </button>
         <button id="eraseButton" on:click={handleErase}> {eraseButtonName} </button>
@@ -280,6 +285,13 @@
 
     #sendMessageButton{
         float: right;
+    }
+    
+    #exitGameButton{
+        position: absolute;
+        right: 30vw;
+        bottom: 5vh;
+        background-color: #ff3e00;
     }
 
     .message {

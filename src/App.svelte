@@ -16,13 +16,16 @@
 	var isFirstRound = true;
 	var word;
 	var winnerNickname;
+	var exitGame = false;
 	const changeState = () => {
-		if (state == 0){
+		if ((state == 0 || state == 3) && !exitGame){
 			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true  // after room creation showing the form for choosing category
-		} else if (state == 1){
+		} else if (state == 1 && !exitGame){
 			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after choosing category showing drawing player's drawing page
-		} else if (state == 2 && !isDrawing){ // if guessing player didn't guess then show them guessing player's drawing page again
+		} else if (state == 2 && !isDrawing && !exitGame){ // if guessing player didn't guess then show them guessing player's drawing page again
 			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
+		} else if (state == 2 && exitGame){
+			state = 3, homePageVisible = true, dpVisible = false, categoryDialogVisible = false, exitGame = false
 		}
 	};
 	
@@ -38,7 +41,7 @@
 	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} word={word} winnerNickname={winnerNickname}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:word={word} bind:winnerNickname={winnerNickname}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:word={word} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState}/>
 {/if}
 
 
