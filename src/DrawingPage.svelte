@@ -12,7 +12,11 @@
     let mouseOffFlag = true
 
     const commandsDictionary = {
-        alert: (arg) => alert(arg)
+        alert: (arg) => alert(arg),
+        guess: (arg) => {
+            console.log(`Guessing: ${arg}`)
+            bondzio.guess(arg)
+        }
     }
 
     var word ="ng";
@@ -170,9 +174,6 @@
             messages.push({nickname: "Me", content: input});
 	        messages = messages;
         }
-	    
-        bondzio.guess(input);
-	    
         document.getElementById("input").value = "";
 	}
 

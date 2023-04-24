@@ -9,8 +9,9 @@ const getCommand = (parsedString) => {
 }
 
 const parseArguments = (parsedString) => {
-    let split = parsedString.split(" ", 2)
-    return split;
+    let command = parsedString.split(" ", 1)
+    let args = parsedString.substr(parsedString.indexOf(" ") + 1)
+    return [command, args];
 }
 
 // commandsDictionary format: {
