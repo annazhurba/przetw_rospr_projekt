@@ -86,7 +86,7 @@
             ctx.stroke();
         }
 
-        function renderDraw(prevCoords){
+        function renderDraw(){
             ctx.beginPath();
             ctx.lineCap = 'round';
             if (!isErasing){
@@ -97,7 +97,7 @@
                 ctx.strokeStyle = '#FFFFFF';
 
             }
-            ctx.moveTo(prevCoords.x, prevCoords.y);
+            ctx.moveTo(coord.prevX, coord.prevY);
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
@@ -153,9 +153,8 @@
 
         let callbacks = {
         onDraw: (arg) => {
-            let prevCoords = coord;
             coord = arg;
-            renderDraw(prevCoords);
+            renderDraw();
         },
         onConnect: (arg) => console.log(arg),
         onNewWord: (arg) => (word = arg),
