@@ -7,6 +7,9 @@
     export let nickname;
     export let category;
     export let isDrawing;
+
+    let mouseOffFlag = true
+
     var word ="ng";
     var isDrawingPlayer = isDrawing; //0 - guessing player, 1 - drawing player
     var isErasing = false;
@@ -29,7 +32,12 @@
 
         var canvas; 
         var ctx;
-        let coord = { x: 0, y: 0 };
+        let coord = { 
+            prevX: 0,
+            prevY: 0,
+            x: 0, 
+            y: 0,
+        };
 
         function resize() {
             ctx.canvas.width = window.innerWidth*0.7;
@@ -37,8 +45,18 @@
         }
 
         function reposition(event) {
-            coord.x = event.clientX - canvas.offsetLeft;
-            coord.y = event.clientY - canvas.offsetTop;
+            let newX = event.clientX - canvas.offsetLeft
+            let newY = event.clientY - canvas.offsetTop
+            if(!mouseOffFlag) {
+                coord.prevX = coord.x
+                coord.prevY = coord.y
+            } else {
+                coord.prevX = newX
+                coord.prevY = newY
+                mouseOffFlag = false;
+            }
+            coord.x = newX;
+            coord.y = newY;
             bondzio.sendDraw(coord);
         }
 
@@ -48,26 +66,15 @@
         }
         function stop(){
             document.removeEventListener('mousemove', draw);
+            mouseOffFlag = true;
         }
 
         function draw(event){
-            ctx.beginPath();
-            ctx.lineCap = 'round';
-            if (!isErasing){
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = '#000000';
-            } else {
-                ctx.lineWidth = 15;
-                ctx.strokeStyle = '#FFFFFF';
-
-            }
-            ctx.moveTo(coord.x, coord.y);
             reposition(event);
-            ctx.lineTo(coord.x, coord.y);
-            ctx.stroke();
+            renderDraw();
         }
 
-        function renderDraw(prevCoords){
+        function renderDraw(){
             ctx.beginPath();
             ctx.lineCap = 'round';
             if (!isErasing){
@@ -78,7 +85,7 @@
                 ctx.strokeStyle = '#FFFFFF';
 
             }
-            ctx.moveTo(prevCoords.x, prevCoords.y);
+            ctx.moveTo(coord.prevX, coord.prevY);
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
@@ -134,9 +141,8 @@
 
         let callbacks = {
         onDraw: (arg) => {
-            let prevCoords = coord;
             coord = arg;
-            renderDraw(prevCoords);
+            renderDraw();
         },
         onConnect: (arg) => console.log(arg),
         onNewWord: (arg) => (word = arg),
