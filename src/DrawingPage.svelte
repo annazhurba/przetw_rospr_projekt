@@ -151,8 +151,8 @@
 		messages = messages
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
-        onCorrectGuess: () => console.log("Guessed correctly"),
-        onOpponentGuess:(arg) => console.log(arg)
+        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true),
+        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false),
         }
 
 	bondzio.socketSetup(callbacks)

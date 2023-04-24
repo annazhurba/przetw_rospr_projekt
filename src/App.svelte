@@ -13,13 +13,16 @@
 	var nickname;
 	var category;
 	var isDrawing;
+	var isFirstRound = true;
 	const changeState = () => {
 		if (state == 0 && isDrawing){
-			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
+			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true  // after room creation showing the form for choosing category
 		} else if (state == 1){
-			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false,console.log("category " + category)
+			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after choosing category showing drawing player's drawing page
 		} else if (state == 0 && !isDrawing){
-			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false,console.log("category " + category)
+			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after joining room showing guessing player's drawing page
+		} else if (state == 2 && !isDrawing){ //if guessing player didn't guess then show them guessing player's drawing page again
+			
 		}
 	};
 	

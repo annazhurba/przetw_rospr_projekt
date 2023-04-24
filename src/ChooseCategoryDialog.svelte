@@ -5,10 +5,20 @@
         category = "people";
         callback();
     }
+    function fruitsButtonClick(){
+        category = "fruits";
+        callback();
+    }
+    function musicButtonClick(){
+        category = "music";
+        callback();
+    }
 </script>
 <div id="categoryForm">
     <p id="chooseCategoryText">Choose a category:</p>
     <input type="button" value="People" on:click={peopleButtonClick}/>
+    <input type="button" value="Fruits" on:click={fruitsButtonClick}/>
+    <input type="button" value="Music" on:click={musicButtonClick}/>
 </div>
 
 <style>
