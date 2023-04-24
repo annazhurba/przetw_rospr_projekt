@@ -7,7 +7,7 @@
     export let roomPassword;
     export let nickname;
     export let category;
-    export var isDrawing;
+    export var isDrawingPlayer;
     export let winnerNickname;
     export let exitGame;
     export let callback;
@@ -24,7 +24,6 @@
         }
     }
 
-    var isDrawingPlayer = isDrawing; 
     var isErasing = false;
     var eraseButtonName = "Erase";
     function loadDrawingPage(){
@@ -161,14 +160,12 @@
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
         onCorrectGuess: () => {
-            isDrawing = true
             isDrawingPlayer = true
             winnerNickname = nickname
             isFirstRound = false
             callback()
         },
         onOpponentGuess: (arg) => {
-            isDrawing = false 
             isDrawingPlayer = false
             winnerNickname = arg
             isFirstRound = false

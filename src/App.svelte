@@ -12,7 +12,7 @@
 	var roomPassword;
 	var nickname;
 	var category;
-	var isDrawing;
+	var isDrawingPlayer;
 	var isFirstRound = true;
 	var winnerNickname;
 	var exitGame = false;
@@ -34,13 +34,13 @@
 	<main>
 		<h1>Draw, I Guess</h1>
 	</main>
-	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawing}/>
+	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawingPlayer}/>
 {/if}
 {#if categoryDialogVisible}
-	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname}/>
+	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawingPlayer={isDrawingPlayer} isFirstRound={isFirstRound} winnerNickname={winnerNickname}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawingPlayer={isDrawingPlayer} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound}/>
 {/if}
 
 
