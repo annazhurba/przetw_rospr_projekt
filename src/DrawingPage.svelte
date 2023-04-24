@@ -37,7 +37,8 @@
             prevY: 0,
             x: 0, 
             y: 0,
-            color: '#000000'
+            color: '#000000',
+            strokeSize: 2
         };
 
         function resize() {
@@ -79,6 +80,7 @@
             ctx.beginPath();
             ctx.lineCap = 'round';
             ctx.strokeStyle = coord.color;
+            ctx.lineWidth = coord.strokeSize;
             ctx.moveTo(coord.prevX, coord.prevY);
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
@@ -116,9 +118,11 @@
             if (isErasing){
                 eraseButtonName = "Draw";
                 coord.color = '#FFFFFF'
+                coord.strokeSize = 15
             } else {
                 eraseButtonName = "Erase";
                 coord.color = '#000000'
+                coord.strokeSize = 2
             }
         }
 
