@@ -77,7 +77,7 @@
             }
             coord.x = newX;
             coord.y = newY;
-            bondzio.sendDraw(coord);
+            if(isDrawingPlayer) bondzio.sendDraw(coord);
         }
 
         function start(event){
