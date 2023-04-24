@@ -68,8 +68,8 @@
                 ctx.strokeStyle = '#FFFFFF';
 
             }
-            ctx.moveTo(coord.x, coord.y);
             reposition(event);
+            ctx.moveTo(coord.prevX, coord.prevY);
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
         }
