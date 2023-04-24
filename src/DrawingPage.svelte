@@ -29,7 +29,12 @@
 
         var canvas; 
         var ctx;
-        let coord = { x: 0, y: 0 };
+        let coord = { 
+            prevX: 0,
+            prevY: 0,
+            x: 0, 
+            y: 0,
+        };
 
         function resize() {
             ctx.canvas.width = window.innerWidth*0.7;
@@ -37,6 +42,8 @@
         }
 
         function reposition(event) {
+            coord.prevX = coord.x
+            coord.prevY = coord.y
             coord.x = event.clientX - canvas.offsetLeft;
             coord.y = event.clientY - canvas.offsetTop;
             bondzio.sendDraw(coord);
