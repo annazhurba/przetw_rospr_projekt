@@ -7,6 +7,9 @@
     export let nickname;
     export let category;
     export let isDrawing;
+
+    let mouseOffFlag = true
+
     var word ="ng";
     var isDrawingPlayer = isDrawing; //0 - guessing player, 1 - drawing player
     var isErasing = false;
@@ -42,10 +45,18 @@
         }
 
         function reposition(event) {
-            coord.prevX = coord.x
-            coord.prevY = coord.y
-            coord.x = event.clientX - canvas.offsetLeft;
-            coord.y = event.clientY - canvas.offsetTop;
+            let newX = event.clientX - canvas.offsetLeft
+            let newY = event.clientY - canvas.offsetTop
+            if(!mouseOffFlag) {
+                coord.prevX = coord.x
+                coord.prevY = coord.y
+            } else {
+                coord.prevX = newX
+                coord.prevY = newY
+                mouseOffFlag = false;
+            }
+            coord.x = newX;
+            coord.y = newY;
             bondzio.sendDraw(coord);
         }
 
@@ -55,6 +66,7 @@
         }
         function stop(){
             document.removeEventListener('mousemove', draw);
+            mouseOffFlag = true;
         }
 
         function draw(event){
