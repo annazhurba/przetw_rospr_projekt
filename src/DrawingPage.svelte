@@ -37,6 +37,7 @@
             prevY: 0,
             x: 0, 
             y: 0,
+            color: '#000000'
         };
 
         function resize() {
@@ -77,14 +78,7 @@
         function renderDraw(){
             ctx.beginPath();
             ctx.lineCap = 'round';
-            if (!isErasing){
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = '#000000';
-            } else {
-                ctx.lineWidth = 15;
-                ctx.strokeStyle = '#FFFFFF';
-
-            }
+            ctx.strokeStyle = coord.color;
             ctx.moveTo(coord.prevX, coord.prevY);
             ctx.lineTo(coord.x, coord.y);
             ctx.stroke();
@@ -121,8 +115,10 @@
             isErasing = !isErasing;
             if (isErasing){
                 eraseButtonName = "Draw";
+                coord.color = '#FFFFFF'
             } else {
                 eraseButtonName = "Erase";
+                coord.color = '#000000'
             }
         }
 
