@@ -70,20 +70,8 @@
         }
 
         function draw(event){
-            ctx.beginPath();
-            ctx.lineCap = 'round';
-            if (!isErasing){
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = '#000000';
-            } else {
-                ctx.lineWidth = 15;
-                ctx.strokeStyle = '#FFFFFF';
-
-            }
             reposition(event);
-            ctx.moveTo(coord.prevX, coord.prevY);
-            ctx.lineTo(coord.x, coord.y);
-            ctx.stroke();
+            renderDraw();
         }
 
         function renderDraw(){
