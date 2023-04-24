@@ -151,7 +151,7 @@
             renderDraw();
         },
         onConnect: (arg) => console.log(arg),
-        onNewWord: (arg) => console.log("new word"),
+        onNewWord: (arg) => {word = arg},
         onChatMessage: (arg) => {
 		messages.push(arg)
 		messages = messages
