@@ -191,6 +191,8 @@
                 <p>{message.content}</p>
                 </div>
             {/each}
+        </div>
+        <div id="sendMessageDiv">
             <input id="input"/>
             <button id="sendMessageButton" on:click={handleSend}> Send </button>
         </div>
@@ -271,9 +273,13 @@
         height:100%;
     }
 
+    #input{
+        width:20vw;
+        float: left;
+    }
+
     #sendMessageButton{
-        position: relative;
-        bottom: 0;
+        float: right;
     }
 
     .message {
