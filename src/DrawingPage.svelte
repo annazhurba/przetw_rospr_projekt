@@ -8,6 +8,8 @@
     export let nickname;
     export let category;
     export let isDrawing;
+    export let word;
+    export let winnerNickname;
 
     let mouseOffFlag = true
 
@@ -19,7 +21,6 @@
         }
     }
 
-    var word ="ng";
     var isDrawingPlayer = isDrawing; //0 - guessing player, 1 - drawing player
     var isErasing = false;
     var eraseButtonName = "Erase";
@@ -160,8 +161,8 @@
 		messages = messages
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
-        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true),
-        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false),
+        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true, winnerNickname = nickname),
+        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false, winnerNickname = arg),
         }
 
 	bondzio.socketSetup(callbacks)
@@ -196,8 +197,8 @@
     </div>
     <p style="display:none;" id="guessingText">Nickname is drawing!</p>
     <div style="display:none;" id="hintText">
-        <button id="clearButton" on:click={() => clearCanvas()}>Clear</button>
-        <button id="eraseButton" on:click={() => handleErase()}>{eraseButtonName}</button>
+        <button id="clearButton" on:click={clearCanvas}> Clear </button>
+        <button id="eraseButton" on:click={handleErase}> {eraseButtonName} </button>
         <p id="drawingText">You draw!</p>
         <p id="drawingHeader">{word}</p>
     </div>

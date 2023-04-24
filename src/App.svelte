@@ -14,15 +14,15 @@
 	var category;
 	var isDrawing;
 	var isFirstRound = true;
+	var word;
+	var winnerNickname;
 	const changeState = () => {
-		if (state == 0 && isDrawing){
+		if (state == 0){
 			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true  // after room creation showing the form for choosing category
 		} else if (state == 1){
 			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after choosing category showing drawing player's drawing page
-		} else if (state == 0 && !isDrawing){
-			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after joining room showing guessing player's drawing page
-		} else if (state == 2 && !isDrawing){ //if guessing player didn't guess then show them guessing player's drawing page again
-			
+		} else if (state == 2 && !isDrawing){ // if guessing player didn't guess then show them guessing player's drawing page again
+			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
 		}
 	};
 	
@@ -35,10 +35,10 @@
 	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawing}/>
 {/if}
 {#if categoryDialogVisible}
-	<ChooseCategoryDialog callback={changeState} bind:category={category}/>
+	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} word={word} winnerNickname={winnerNickname}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:word={word} bind:winnerNickname={winnerNickname}/>
 {/if}
 
 
