@@ -33,11 +33,16 @@
             document.getElementById("guessingText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "none";
             document.getElementById("input").style.display = "none";
+            document.addEventListener('mousedown', start);
+            document.addEventListener('mouseup', stop);
+
         } else {
             document.getElementById("guessingText").style.display = "block";
             document.getElementById("hintText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "block";
             document.getElementById("input").style.display = "block";
+            document.removeEventListener('mousedown', start);
+            document.removeEventListener('mouseup', stop);
         }
     }
 
@@ -117,10 +122,7 @@
             let scrollbox = document.getElementById("Messages");
             scrollbox.scrollTop = scrollbox.scrollHeight
         });
-        if (isDrawingPlayer){
-            document.addEventListener('mousedown', start);
-            document.addEventListener('mouseup', stop);
-        }
+        
         window.addEventListener('resize', resize);
         function clearCanvas(){
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
