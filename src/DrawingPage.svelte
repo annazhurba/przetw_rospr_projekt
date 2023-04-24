@@ -221,16 +221,17 @@
         border-color: black;
         border-style: solid;
         width: 25vw;
-        height: 90vh;
+        height: 85vh;
     }
     
     #guessingText{ 
         position: relative;
-        top: 83vh;
+        top: 80vh;
         left: 25vw;
         bottom: auto;
         font-size: x-large;
         font-weight: bold;
+        width: 40vw;
     }
 
     #hintText{
@@ -288,7 +289,7 @@
     #exitGameButton{
         position: absolute;
         left: 5vw;
-        bottom: 5vh;
+        bottom: 1vh;
         background-color: #ff3e00;
     }
 
