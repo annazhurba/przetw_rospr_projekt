@@ -4,7 +4,6 @@
     export let category;
     export let isDrawing;
     export let isFirstRound;
-    export let word;
     export let winnerNickname;
 
     function loadChooseCategoryDialog(){
@@ -54,15 +53,15 @@
 </script>
 <div id="categoryForm">
     <div id="forWinner">
-        <p id="forWinnerText">You guessed correctly! It was <b>{word}</b>. Now you draw!</p>
+        <p id="forWinnerText">You guessed correctly! Now you draw!</p>
         <p id="chooseCategoryText">Choose a category:</p>
         <button on:click={peopleButtonClick} class="categoryButtons">People</button>
         <button on:click={fruitsButtonClick} class="categoryButtons">Fruits</button>
         <button on:click={musicButtonClick} class="categoryButtons">Music</button>
     </div>
     <div id="forLoser">
-        <p id="forLoserText">{winnerNickname} guessed the word this time! It was <b>{word}</b>. You can try again. </p>
-        <button on:click={joinGame} id="forLoserButton" class="nonCategoryButtons">Try again</button>
+        <p id="forLoserText">{winnerNickname} guessed the word this time! You can play again. </p>
+        <button on:click={joinGame} id="forLoserButton" class="nonCategoryButtons">Play</button>
     </div>
     <div id="forFirstRound">
         <p id="forFirstRoundText">You guess the word!</p>
@@ -74,7 +73,7 @@
     #categoryForm{
         position: absolute;
         top:40vh;
-        left: 40vw;
+        left: 30vw;
     }
     #chooseCategoryText{
         font-size: large;

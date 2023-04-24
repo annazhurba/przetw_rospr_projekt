@@ -22,8 +22,8 @@
 			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true  // after room creation showing the form for choosing category
 		} else if (state == 1 && !exitGame){
 			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after choosing category showing drawing player's drawing page
-		} else if (state == 2 && !isDrawing && !exitGame){ // if guessing player didn't guess then show them guessing player's drawing page again
-			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
+		} else if (state == 2 && !exitGame){ // if guessing player didn't guess then show 
+			state = 0, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
 		} else if (state == 2 && exitGame){
 			state = 3, homePageVisible = true, dpVisible = false, categoryDialogVisible = false, exitGame = false
 		}
@@ -38,10 +38,10 @@
 	<Buttons bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawing}/>
 {/if}
 {#if categoryDialogVisible}
-	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} word={word} winnerNickname={winnerNickname}/>
+	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname}/>
 {/if}
 {#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:word={word} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState}/>
+	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:word={word} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound}/>
 {/if}
 
 

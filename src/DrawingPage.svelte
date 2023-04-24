@@ -7,11 +7,12 @@
     export let roomPassword;
     export let nickname;
     export let category;
-    export let isDrawing;
+    export var isDrawing;
     export let word;
     export let winnerNickname;
     export let exitGame;
     export let callback;
+    export let isFirstRound;
 
     let mouseOffFlag = true
 
@@ -108,7 +109,6 @@
             });
             if (isDrawingPlayer == true){
                 word = bondzio.getNewWord(category);
-                //console.log(word);
             }
             loadDrawingPage();
             canvas = document.getElementById("canvas");
@@ -158,8 +158,8 @@
 		messages = messages
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
-        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true, winnerNickname = nickname, callback()),
-        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false, winnerNickname = arg, callback()),
+        onCorrectGuess: () => (isDrawing = true, isDrawingPlayer = true, winnerNickname = nickname, isFirstRound = false, callback()),
+        onOpponentGuess:(arg) => (isDrawing = false, isDrawingPlayer = false, winnerNickname = arg, isFirstRound = false, callback()),
         }
 
 	bondzio.socketSetup(callbacks)
