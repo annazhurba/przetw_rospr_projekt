@@ -7,7 +7,7 @@
     export let roomName;
     export let roomPassword;
     export let nickname;
-    export let isDrawingPlayer = false;
+    export let isDrawingPlayer;
     var state = 0; //0 - initial elements show; 1 - log in elements show; 2- create room elements show
 
     function handleHost(){
@@ -29,7 +29,7 @@
     }
 
     function handleSubmitJoinForm(){
-        isDrawingPlayer = false;
+        isDrawingPlayer = "false";
         bondzio.eat({
             roomName: document.getElementById("roomName").value,
             password: document.getElementById("roomPassword").value,
@@ -42,7 +42,7 @@
 
     function handleSubmitCreateForm(){
         //create new room
-        isDrawingPlayer = true;
+        isDrawingPlayer = "true";
         bondzio.eat({
             roomName: document.getElementById("roomName").value,
             password: document.getElementById("roomPassword").value,
@@ -65,8 +65,8 @@
     <input type="password" placeholder="Password" id="roomPassword" bind:value={roomPassword}/>
     <p>Enter your nickname</p>
     <input type="text" placeholder="Nickname" id="playerNickname" bind:value={nickname}/>
-    <p><input type="button" value="Join" id="joinFormButton" on:click={() => handleSubmitJoinForm()}/></p>
-    <p><input type="button" value="Create" id="createFormButton" on:click={() => handleSubmitCreateForm()}/></p>
+    <p><input type="button" value="Join" id="joinFormButton" on:click={handleSubmitJoinForm}/></p>
+    <p><input type="button" value="Create" id="createFormButton" on:click={handleSubmitCreateForm}/></p>
 </div>
 
 <style>

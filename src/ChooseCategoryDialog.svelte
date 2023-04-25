@@ -7,17 +7,17 @@
     export let winnerNickname;
 
     function loadChooseCategoryDialog(){
-        if (isDrawingPlayer && isFirstRound){         //without anything, just picking category
+        if (isDrawingPlayer === "true" && isFirstRound === "true"){         //without anything, just picking category
             document.getElementById("forWinner").style.display = "block";
             document.getElementById("forWinnerText").style.display = "none";
             document.getElementById("forLoser").style.display = "none";
             document.getElementById("forFirstRound").style.display = "none";
-        } else if (isDrawingPlayer && !isFirstRound){
+        } else if (isDrawingPlayer === "true" && isFirstRound === "false"){
             document.getElementById("forWinner").style.display = "block";
             document.getElementById("forWinnerText").style.display = "block";
             document.getElementById("forLoser").style.display = "none";
             document.getElementById("forFirstRound").style.display = "none";
-        } else if (!isDrawingPlayer && isFirstRound){
+        } else if (isDrawingPlayer === "false" && isFirstRound === "true"){
             document.getElementById("forWinner").style.display = "none";
             document.getElementById("forWinnerText").style.display = "none";
             document.getElementById("forLoser").style.display = "none";

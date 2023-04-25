@@ -5,7 +5,7 @@
     export let bondzio;
     export let nickname;
     export let category;
-    export var isDrawingPlayer;
+    export let isDrawingPlayer;
     export let winnerNickname;
     export let exitGame;
     export let callback;
@@ -25,7 +25,7 @@
     var isErasing = false;
     var eraseButtonName = "Erase";
     function loadDrawingPage(){
-        if (isDrawingPlayer){ 
+        if (isDrawingPlayer === "true"){ 
             document.getElementById("hintText").style.display = "block";
             document.getElementById("guessingText").style.display = "none";
             document.getElementById("sendMessageButton").style.display = "none";
@@ -74,7 +74,7 @@
             }
             coord.x = newX;
             coord.y = newY;
-            if(isDrawingPlayer) bondzio.sendDraw(coord);
+            if(isDrawingPlayer === "true") bondzio.sendDraw(coord);
         }
 
         function start(event){
@@ -102,7 +102,7 @@
         }
     
         onMount(async () => {
-            if (isDrawingPlayer == true){
+            if (isDrawingPlayer === "true"){
                 word = bondzio.getNewWord(category);
             }
             loadDrawingPage();
@@ -146,15 +146,15 @@
 		}, 
         onRoomConfirm: (arg) => console.log(arg),
         onCorrectGuess: () => {
-            isDrawingPlayer = true
+            isDrawingPlayer = "true"
             winnerNickname = nickname
-            isFirstRound = false
+            isFirstRound = "false"
             callback()
         },
         onOpponentGuess: (arg) => {
-            isDrawingPlayer = false
+            isDrawingPlayer = "true"
             winnerNickname = arg
-            isFirstRound = false
+            isFirstRound = "false"
             callback()
         },
         }
@@ -173,7 +173,7 @@
 	}
 
     function exitGameButton(){
-        exitGame = true;
+        exitGame = "true";
         callback();
     }
 
