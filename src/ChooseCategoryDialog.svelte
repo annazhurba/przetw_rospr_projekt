@@ -17,7 +17,7 @@
             document.getElementById("forWinnerText").style.display = "block";
             document.getElementById("forLoser").style.display = "none";
             document.getElementById("forFirstRound").style.display = "none";
-        } else if (!isDrawingPLayer && isFirstRound){
+        } else if (!isDrawingPlayer && isFirstRound){
             document.getElementById("forWinner").style.display = "none";
             document.getElementById("forWinnerText").style.display = "none";
             document.getElementById("forLoser").style.display = "none";

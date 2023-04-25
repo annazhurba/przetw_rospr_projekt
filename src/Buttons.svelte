@@ -35,6 +35,7 @@
             password: document.getElementById("roomPassword").value,
             action: 0 
         }).then(room => {
+            bondzio.connect(nickname);
             callback();
         });
     }

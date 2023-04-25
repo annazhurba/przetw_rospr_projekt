@@ -3,8 +3,6 @@
     import { handleCommand } from './commandParser'
 
     export let bondzio;
-    export let roomName;
-    export let roomPassword;
     export let nickname;
     export let category;
     export var isDrawingPlayer;
@@ -104,9 +102,6 @@
         }
     
         onMount(async () => {
-            if (isFirstRound){
-                bondzio.connect(nickname);
-            }
             if (isDrawingPlayer == true){
                 word = bondzio.getNewWord(category);
             }
