@@ -3,10 +3,6 @@
 	import Buttons from "./Buttons.svelte";
     import DrawingPage from "./DrawingPage.svelte";
     import ChooseCategoryDialog from "./ChooseCategoryDialog.svelte";
-	import ChooseCategoryDialog1 from "./ChooseCategoryDialog1.svelte";
-	import ChooseCategoryDialog2 from "./ChooseCategoryDialog2.svelte";
-	import ChooseCategoryDialog3 from "./ChooseCategoryDialog3.svelte";
-	import ChooseCategoryDialog4 from "./ChooseCategoryDialog4.svelte";
 	let bondzio = new Bondzio();
 	var state = 0;
 	var homePageVisible = true;
