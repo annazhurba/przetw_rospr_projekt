@@ -119,20 +119,21 @@
                 coord = arg;
                 renderDraw();
             },
-            onConnect: (arg) => console.log(arg),
+            onConnect: (arg) => console.log("onConnect" + arg),
             onNewWord: (arg) => {word = arg},
             onChatMessage: (arg) => {
             messages.push(arg)
             messages = messages
             }, 
-            onRoomConfirm: (arg) => console.log(arg),
+            onRoomConfirm: (arg) => console.log("onRoomConfirm" + arg),
             onCorrectGuess: () => {
                 isDrawingPlayer = "true";
                 isDrawing = isDrawingPlayer;
                 winnerNickname = nickname;
                 isFirstRound = "false";
                 score = score + 1;
-                //console.log(isDrawingPlayer);
+                word = null;
+                console.log("OnCorrectGuess callback");
                 callback();
             },
             onOpponentGuess: (arg) => {
@@ -140,7 +141,8 @@
                 isDrawing = isDrawingPlayer;
                 winnerNickname = arg;
                 isFirstRound = "false";
-                console.log(isDrawingPlayer);
+                word = null;
+                console.log("OnOpponentGuess callback");
                 callback();
             },
             }
@@ -180,6 +182,7 @@
 
     function exitGameButton(){
         exitGame = "true";
+        console.log("exitGame callback");
         callback();
     }
 

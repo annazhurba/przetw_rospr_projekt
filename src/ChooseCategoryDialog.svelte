@@ -7,8 +7,8 @@
     export let winnerNickname;
     export let isEnd;
     export var exitGame;
-
     function loadChooseCategoryDialog(){
+        console.log("loading");
         if (isEnd){
             exitGame = "true";
             document.getElementById("endGame").style.display = "block";
@@ -44,48 +44,56 @@
         }
     }
     function joinGame(){
+        console.log("joinGame")
         callback();
     }
     //export let nickname;
     function peopleButtonClick(){
+        console.log("peopleButtonClick");
         category = "people";
         callback();
     }
     function fruitsButtonClick(){
         category = "fruits";
+        console.log("fruitsButtonClick");
         callback();
     }
     function musicButtonClick(){
+        console.log("mussicButtonClick");
         category = "music";
         callback();
     }
 
     onMount(async () => {
         loadChooseCategoryDialog();
+        console.log("mount");
     });
 
 </script>
-<div id="categoryForm">
-    <div id="forWinner">
-        <p id="forWinnerText">You guessed correctly! Now you draw!</p>
-        <p id="chooseCategoryText">Choose a category:</p>
-        <button on:click={peopleButtonClick} class="categoryButtons">People</button>
-        <button on:click={fruitsButtonClick} class="categoryButtons">Fruits</button>
-        <button on:click={musicButtonClick} class="categoryButtons">Music</button>
+
+    <div id="categoryForm">
+
+        <div id="forWinner">
+            <p id="forWinnerText">You guessed correctly! Now you draw!</p>
+            <p id="chooseCategoryText">Choose a category:</p>
+            <button on:click={peopleButtonClick} class="categoryButtons">People</button>
+            <button on:click={fruitsButtonClick} class="categoryButtons">Fruits</button>
+            <button on:click={musicButtonClick} class="categoryButtons">Music</button>
+        </div>
+        <div id="forLoser">
+            <p id="forLoserText">{winnerNickname} guessed the word this time! You can play again. </p>
+            <button on:click={joinGame} id="forLoserButton" class="nonCategoryButtons">Play</button>
+        </div>
+        <div id="forFirstRound">
+            <p id="forFirstRoundText">You guess the word!</p>
+            <button on:click={joinGame} id="forFirstRoundButton" class="nonCategoryButtons">Play</button>
+        </div>
+        <div id="endGame">
+            <p id="endGameText">The end! Your score: </p>
+            <button on:click={joinGame} id="endGameButtont" class="nonCategoryButtons">Play</button>
+        </div>
     </div>
-    <div id="forLoser">
-        <p id="forLoserText">{winnerNickname} guessed the word this time! You can play again. </p>
-        <button on:click={joinGame} id="forLoserButton" class="nonCategoryButtons">Play</button>
-    </div>
-    <div id="forFirstRound">
-        <p id="forFirstRoundText">You guess the word!</p>
-        <button on:click={joinGame} id="forFirstRoundButton" class="nonCategoryButtons">Play</button>
-    </div>
-    <div id="endGame">
-        <p id="endGameText">The end! Your score: </p>
-        <button on:click={joinGame} id="endGameButtont" class="nonCategoryButtons">Play</button>
-    </div>
-</div>
+
 
 <style>
     #categoryForm{

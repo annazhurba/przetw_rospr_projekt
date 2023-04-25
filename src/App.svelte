@@ -24,16 +24,25 @@
 	let maxGamesPlayed = 5;
 	var isEnd = false;
 	var score = 0;
+	let unique ={};
+
 	const changeState = () => {
+		unique ={};
+		console.log("homepageVisible");
+		console.log(homePageVisible);
+		console.log("dpVisible");
+		console.log(dpVisible);
+		console.log("categoryDVisible");
+		console.log(categoryDialogVisible);
 		if (gamesPlayed >= maxGamesPlayed){
 			isEnd = true;
 		}
 		if ((state == 0 || state == 3) && exitGame === "false"){
-			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true, console.log(state)  // after room creation showing the form for choosing category
+			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true, console.log("state" + state)  // after room creation showing the form for choosing category
 		} else if (state == 1 && exitGame === "false"){
-			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false, console.log(state) // after choosing category showing drawing player's drawing page
+			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false, console.log("state" + state) // after choosing category showing drawing player's drawing page
 		} else if (state == 2 && exitGame === "false"){ // if guessing player didn't guess then show 
-			state = 0,  console.log(state), gamesPlayed += 1, console.log("gamesplahed"), console.log(gamesPlayed), changeState()
+			state = 1,  console.log("state" + state), gamesPlayed += 1, category =null, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
 		} else if (state == 2 && exitGame === "true"){
 			state = 3, homePageVisible = true, dpVisible = false, categoryDialogVisible = false, exitGame = false
 		}
@@ -46,17 +55,9 @@
 	</main>
 	<Buttons bind:bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawing}/>
 {:else if categoryDialogVisible}
-	{#if gamesPlayed == 0}
+	{#key unique}
 		<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
-	{:else if gamesPlayed == 1}
-		<ChooseCategoryDialog1 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
-	{:else if gamesPlayed == 2}
-		<ChooseCategoryDialog2 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
-	{:else if gamesPlayed == 3}
-		<ChooseCategoryDialog3 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
-	{:else if gamesPlayed == 4}
-		<ChooseCategoryDialog4 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
-	{/if}
+	{/key}
 {:else if dpVisible}
 	<DrawingPage bind:bondzio={bondzio} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound} bind:score={score}/>
 {/if}

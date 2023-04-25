@@ -11,36 +11,36 @@
     function loadChooseCategoryDialog(){
         if (isEnd){
             exitGame = "true";
-            document.getElementById("endGame").style.display = "block";
-            document.getElementById("forWinner").style.display = "none";
-            document.getElementById("forWinnerText").style.display = "none";
-            document.getElementById("forLoser").style.display = "none";
-            document.getElementById("forFirstRound").style.display = "none";
+            document.getElementById("endGame1").style.display = "block";
+            document.getElementById("forWinner1").style.display = "none";
+            document.getElementById("forWinnerText1").style.display = "none";
+            document.getElementById("forLoser1").style.display = "none";
+            document.getElementById("forFirstRound1").style.display = "none";
         }
         else if (isDrawing === "true" && isFirstRound === "true"){         //without anything, just picking category
-            document.getElementById("forWinner").style.display = "block";
-            document.getElementById("forWinnerText").style.display = "none";
-            document.getElementById("forLoser").style.display = "none";
-            document.getElementById("forFirstRound").style.display = "none";
-            document.getElementById("endGame").style.display = "none";
+            document.getElementById("forWinner1").style.display = "block";
+            document.getElementById("forWinnerText1").style.display = "none";
+            document.getElementById("forLoser1").style.display = "none";
+            document.getElementById("forFirstRound1").style.display = "none";
+            document.getElementById("endGame1").style.display = "none";
         } else if (isDrawing === "true" && isFirstRound === "false"){
-            document.getElementById("forWinner").style.display = "block";
-            document.getElementById("forWinnerText").style.display = "block";
-            document.getElementById("forLoser").style.display = "none";
-            document.getElementById("forFirstRound").style.display = "none";
-            document.getElementById("endGame").style.display = "none";
+            document.getElementById("forWinner1").style.display = "block";
+            document.getElementById("forWinnerText1").style.display = "block";
+            document.getElementById("forLoser1").style.display = "none";
+            document.getElementById("forFirstRound1").style.display = "none";
+            document.getElementById("endGame1").style.display = "none";
         } else if (isDrawing === "false" && isFirstRound === "true"){
-            document.getElementById("forWinner").style.display = "none";
-            document.getElementById("forWinnerText").style.display = "none";
-            document.getElementById("forLoser").style.display = "none";
-            document.getElementById("forFirstRound").style.display = "block";
-            document.getElementById("endGame").style.display = "none";
+            document.getElementById("forWinner1").style.display = "none";
+            document.getElementById("forWinnerText1").style.display = "none";
+            document.getElementById("forLoser1").style.display = "none";
+            document.getElementById("forFirstRound1").style.display = "block";
+            document.getElementById("endGame1").style.display = "none";
         } else {
-            document.getElementById("forWinner").style.display = "none";
-            document.getElementById("forWinnerText").style.display = "none";
-            document.getElementById("forLoser").style.display = "block";
-            document.getElementById("forFirstRound").style.display = "none";
-            document.getElementById("endGame").style.display = "none";
+            document.getElementById("forWinner1").style.display = "none";
+            document.getElementById("forWinnerText1").style.display = "none";
+            document.getElementById("forLoser1").style.display = "block";
+            document.getElementById("forFirstRound1").style.display = "none";
+            document.getElementById("endGame1").style.display = "none";
         }
     }
     function joinGame(){
@@ -65,45 +65,45 @@
     });
 
 </script>
-<div id="categoryForm">
-    <div id="forWinner">
-        <p id="forWinnerText">You guessed correctly! Now you draw!</p>
-        <p id="chooseCategoryText">Choose a category:</p>
-        <button on:click={peopleButtonClick} class="categoryButtons">People</button>
-        <button on:click={fruitsButtonClick} class="categoryButtons">Fruits</button>
-        <button on:click={musicButtonClick} class="categoryButtons">Music</button>
+<div id="categoryForm1">
+    <div id="forWinner1">
+        <p id="forWinnerText1">You guessed correctly! Now you draw!</p>
+        <p id="chooseCategoryText1">Choose a category:</p>
+        <button on:click={peopleButtonClick} class="categoryButtons1">People</button>
+        <button on:click={fruitsButtonClick} class="categoryButtons1">Fruits</button>
+        <button on:click={musicButtonClick} class="categoryButtons1">Music</button>
     </div>
-    <div id="forLoser">
-        <p id="forLoserText">{winnerNickname} guessed the word this time! You can play again. </p>
-        <button on:click={joinGame} id="forLoserButton" class="nonCategoryButtons">Play</button>
+    <div id="forLoser1">
+        <p id="forLoserText1">{winnerNickname} guessed the word this time! You can play again. </p>
+        <button on:click={joinGame} id="forLoserButton1" class="nonCategoryButtons1">Play</button>
     </div>
-    <div id="forFirstRound">
-        <p id="forFirstRoundText">You guess the word!</p>
-        <button on:click={joinGame} id="forFirstRoundButton" class="nonCategoryButtons">Play</button>
+    <div id="forFirstRound1">
+        <p id="forFirstRoundText1">You guess the word!</p>
+        <button on:click={joinGame} id="forFirstRoundButton1" class="nonCategoryButtons1">Play</button>
     </div>
-    <div id="endGame">
-        <p id="endGameText">The end! Your score: </p>
-        <button on:click={joinGame} id="endGameButtont" class="nonCategoryButtons">Play</button>
+    <div id="endGame1">
+        <p id="endGameText1">The end! Your score: </p>
+        <button on:click={joinGame} id="endGameButtont1" class="nonCategoryButtons1">Play</button>
     </div>
 </div>
 
 <style>
-    #categoryForm{
+    #categoryForm1{
         position: absolute;
         top:40vh;
         left: 30vw;
     }
-    #chooseCategoryText{
+    #chooseCategoryText1{
         font-size: large;
     }
-    .categoryButtons{
+    .categoryButtons1{
         margin-left: 1%;
         margin-right: 1%;
     }
     p{
         text-align: center;
     }
-    .nonCategoryButtons{
+    .nonCategoryButtons1{
         margin-left: 50%;
         margin-right: auto;
     }

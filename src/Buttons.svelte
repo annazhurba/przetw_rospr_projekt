@@ -36,6 +36,7 @@
             action: 0 
         }).then(room => {
             bondzio.connect(nickname);
+            console.log("handleSubmitJoinForm")
             callback();
         });
     }
@@ -49,6 +50,7 @@
             action: 1 
         }).then(room => {
             bondzio.connect(nickname);
+            console.log("handleSubmitCreateForm")
             callback();
         });
     }
