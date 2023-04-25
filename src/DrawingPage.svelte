@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { handleCommand } from './commandParser'
+    import { bind } from "svelte/internal";
 
     export let bondzio;
     export let nickname;
@@ -102,6 +103,43 @@
             ctx.stroke();
         }
     
+        var messages = [];
+	
+
+    
+
+	const handleSend = () => {
+        let input = document.getElementById("input").value;
+        let commandsRes = handleCommand(commandsDictionary, input)
+        if(commandsRes == null) {
+            bondzio.sendMessage(input);
+            messages.push({nickname: "Me", content: input});
+	        messages = messages;
+        }
+        document.getElementById("input").value = "";
+	}
+
+    function exitGameButton(){
+        exitGame = "true";
+        console.log("exitGame callback");
+        callback();
+    }
+    window.addEventListener('resize', resize);
+        function clearCanvas(){
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
+        function handleErase(){
+            isErasing = !isErasing;
+            if (isErasing){
+                eraseButtonName = "Draw";
+                coord.color = '#FFFFFF'
+                coord.strokeSize = 15
+            } else {
+                eraseButtonName = "Erase";
+                coord.color = '#000000'
+                coord.strokeSize = 2
+            }
+        }
         onMount(async () => {
            
             if (isDrawingPlayer === "true"){
@@ -147,44 +185,7 @@
             },
             }
             bondzio.socketSetup(callbacks);
-        window.addEventListener('resize', resize);
-        function clearCanvas(){
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        }
-        function handleErase(){
-            isErasing = !isErasing;
-            if (isErasing){
-                eraseButtonName = "Draw";
-                coord.color = '#FFFFFF'
-                coord.strokeSize = 15
-            } else {
-                eraseButtonName = "Erase";
-                coord.color = '#000000'
-                coord.strokeSize = 2
-            }
-        }
 
-	var messages = [];
-	
-
-    
-
-	const handleSend = () => {
-        let input = document.getElementById("input").value;
-        let commandsRes = handleCommand(commandsDictionary, input)
-        if(commandsRes == null) {
-            bondzio.sendMessage(input);
-            messages.push({nickname: "Me", content: input});
-	        messages = messages;
-        }
-        document.getElementById("input").value = "";
-	}
-
-    function exitGameButton(){
-        exitGame = "true";
-        console.log("exitGame callback");
-        callback();
-    }
 
 
 </script>

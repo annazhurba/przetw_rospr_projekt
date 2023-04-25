@@ -27,6 +27,7 @@
 	let unique ={};
 
 	const changeState = () => {
+		alert("chuj123")
 		unique ={};
 		console.log("homepageVisible");
 		console.log(homePageVisible);
