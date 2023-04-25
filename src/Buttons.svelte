@@ -29,8 +29,6 @@
     }
 
     function handleSubmitJoinForm(){
-        //console.log(document.getElementById("roomName").value);
-        //redirecting to drawing page or loading page
         isDrawingPlayer = false;
         bondzio.eat({
             roomName: document.getElementById("roomName").value,

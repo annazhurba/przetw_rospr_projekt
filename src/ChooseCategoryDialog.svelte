@@ -2,22 +2,22 @@
     import { onMount } from "svelte";
     export let callback;
     export let category;
-    export let isDrawing;
+    export let isDrawingPlayer;
     export let isFirstRound;
     export let winnerNickname;
 
     function loadChooseCategoryDialog(){
-        if (isDrawing && isFirstRound){         //without anything, just picking category
+        if (isDrawingPlayer && isFirstRound){         //without anything, just picking category
             document.getElementById("forWinner").style.display = "block";
             document.getElementById("forWinnerText").style.display = "none";
             document.getElementById("forLoser").style.display = "none";
             document.getElementById("forFirstRound").style.display = "none";
-        } else if (isDrawing && !isFirstRound){
+        } else if (isDrawingPlayer && !isFirstRound){
             document.getElementById("forWinner").style.display = "block";
             document.getElementById("forWinnerText").style.display = "block";
             document.getElementById("forLoser").style.display = "none";
             document.getElementById("forFirstRound").style.display = "none";
-        } else if (!isDrawing && isFirstRound){
+        } else if (!isDrawingPLayer && isFirstRound){
             document.getElementById("forWinner").style.display = "none";
             document.getElementById("forWinnerText").style.display = "none";
             document.getElementById("forLoser").style.display = "none";

@@ -105,13 +105,6 @@
     
         onMount(async () => {
             if (isFirstRound){
-                bondzio.eat({
-                    roomName: roomName,
-                    password: roomPassword,
-                    action: 0 
-                }).then(room => {
-                    console.log(room); 
-                });
                 bondzio.connect(nickname);
             }
             if (isDrawingPlayer == true){
