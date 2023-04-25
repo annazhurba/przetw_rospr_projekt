@@ -5,11 +5,12 @@
     export let bondzio;
     export let nickname;
     export let category;
-    export let isDrawingPlayer;
+    export var isDrawing;
     export let winnerNickname;
     export let exitGame;
     export let callback;
-    export let isFirstRound;
+    export var isFirstRound;
+    export var score;
     let word;
 
     let mouseOffFlag = true
@@ -21,7 +22,7 @@
             bondzio.guess(arg)
         }
     }
-
+    var isDrawingPlayer = isDrawing;
     var isErasing = false;
     var eraseButtonName = "Erase";
     function loadDrawingPage(){
@@ -102,8 +103,9 @@
         }
     
         onMount(async () => {
+           
             if (isDrawingPlayer === "true"){
-                word = bondzio.getNewWord(category);
+                bondzio.getNewWord(category);
             }
             loadDrawingPage();
             canvas = document.getElementById("canvas");
@@ -112,7 +114,37 @@
             let scrollbox = document.getElementById("Messages");
             scrollbox.scrollTop = scrollbox.scrollHeight
         });
-        
+        let callbacks = {
+            onDraw: (arg) => {
+                coord = arg;
+                renderDraw();
+            },
+            onConnect: (arg) => console.log(arg),
+            onNewWord: (arg) => {word = arg},
+            onChatMessage: (arg) => {
+            messages.push(arg)
+            messages = messages
+            }, 
+            onRoomConfirm: (arg) => console.log(arg),
+            onCorrectGuess: () => {
+                isDrawingPlayer = "true";
+                isDrawing = isDrawingPlayer;
+                winnerNickname = nickname;
+                isFirstRound = "false";
+                score = score + 1;
+                //console.log(isDrawingPlayer);
+                callback();
+            },
+            onOpponentGuess: (arg) => {
+                isDrawingPlayer = "false";
+                isDrawing = isDrawingPlayer;
+                winnerNickname = arg;
+                isFirstRound = "false";
+                console.log(isDrawingPlayer);
+                callback();
+            },
+            }
+            bondzio.socketSetup(callbacks);
         window.addEventListener('resize', resize);
         function clearCanvas(){
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -133,33 +165,7 @@
 	var messages = [];
 	
 
-        let callbacks = {
-        onDraw: (arg) => {
-            coord = arg;
-            renderDraw();
-        },
-        onConnect: (arg) => console.log(arg),
-        onNewWord: (arg) => {word = arg},
-        onChatMessage: (arg) => {
-		messages.push(arg)
-		messages = messages
-		}, 
-        onRoomConfirm: (arg) => console.log(arg),
-        onCorrectGuess: () => {
-            isDrawingPlayer = "true"
-            winnerNickname = nickname
-            isFirstRound = "false"
-            callback()
-        },
-        onOpponentGuess: (arg) => {
-            isDrawingPlayer = "true"
-            winnerNickname = arg
-            isFirstRound = "false"
-            callback()
-        },
-        }
-
-	bondzio.socketSetup(callbacks)
+    
 
 	const handleSend = () => {
         let input = document.getElementById("input").value;
@@ -196,7 +202,7 @@
             <button id="sendMessageButton" on:click={handleSend}> Send </button>
         </div>
     </div>
-    <p style="display:none;" id="guessingText">Nickname is drawing!</p>
+    <p style="display:none;" id="guessingText">Another player is drawing!</p>
     <button id="exitGameButton" on:click={exitGameButton}>Exit game</button>
     <div style="display:none;" id="hintText">
         <button id="clearButton" on:click={clearCanvas}> Clear </button>

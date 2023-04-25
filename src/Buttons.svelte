@@ -7,7 +7,7 @@
     export let roomName;
     export let roomPassword;
     export let nickname;
-    export let isDrawingPlayer;
+    export var isDrawing;
     var state = 0; //0 - initial elements show; 1 - log in elements show; 2- create room elements show
 
     function handleHost(){
@@ -29,7 +29,7 @@
     }
 
     function handleSubmitJoinForm(){
-        isDrawingPlayer = "false";
+        isDrawing = "false";
         bondzio.eat({
             roomName: document.getElementById("roomName").value,
             password: document.getElementById("roomPassword").value,
@@ -42,12 +42,13 @@
 
     function handleSubmitCreateForm(){
         //create new room
-        isDrawingPlayer = "true";
+        isDrawing = "true";
         bondzio.eat({
             roomName: document.getElementById("roomName").value,
             password: document.getElementById("roomPassword").value,
             action: 1 
         }).then(room => {
+            bondzio.connect(nickname);
             callback();
         });
     }

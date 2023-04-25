@@ -3,6 +3,10 @@
 	import Buttons from "./Buttons.svelte";
     import DrawingPage from "./DrawingPage.svelte";
     import ChooseCategoryDialog from "./ChooseCategoryDialog.svelte";
+	import ChooseCategoryDialog1 from "./ChooseCategoryDialog1.svelte";
+	import ChooseCategoryDialog2 from "./ChooseCategoryDialog2.svelte";
+	import ChooseCategoryDialog3 from "./ChooseCategoryDialog3.svelte";
+	import ChooseCategoryDialog4 from "./ChooseCategoryDialog4.svelte";
 	let bondzio = new Bondzio();
 	var state = 0;
 	var homePageVisible = true;
@@ -12,35 +16,49 @@
 	var roomPassword;
 	var nickname;
 	var category;
-	var isDrawingPlayer;
+	var isDrawing;
 	var isFirstRound = "true";
 	var winnerNickname;
 	var exitGame = "false";
+	var gamesPlayed = 0;
+	let maxGamesPlayed = 5;
+	var isEnd = false;
+	var score = 0;
 	const changeState = () => {
+		if (gamesPlayed >= maxGamesPlayed){
+			isEnd = true;
+		}
 		if ((state == 0 || state == 3) && exitGame === "false"){
-			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true  // after room creation showing the form for choosing category
-		} else if (state == 1 && exitGame == "false"){
-			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false  // after choosing category showing drawing player's drawing page
+			state = 1, homePageVisible = false, dpVisible = false, categoryDialogVisible = true, console.log(state)  // after room creation showing the form for choosing category
+		} else if (state == 1 && exitGame === "false"){
+			state = 2, homePageVisible = false, dpVisible = true, categoryDialogVisible = false, console.log(state) // after choosing category showing drawing player's drawing page
 		} else if (state == 2 && exitGame === "false"){ // if guessing player didn't guess then show 
-			state = 0, homePageVisible = false, dpVisible = false, categoryDialogVisible = true
+			state = 0,  console.log(state), gamesPlayed += 1, console.log("gamesplahed"), console.log(gamesPlayed), changeState()
 		} else if (state == 2 && exitGame === "true"){
 			state = 3, homePageVisible = true, dpVisible = false, categoryDialogVisible = false, exitGame = false
 		}
 	};
-	
 </script>
 
 {#if homePageVisible}
 	<main>
 		<h1>Draw, I Guess</h1>
 	</main>
-	<Buttons bind:bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawingPlayer={isDrawingPlayer}/>
-{/if}
-{#if categoryDialogVisible}
-	<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawingPlayer={isDrawingPlayer} isFirstRound={isFirstRound} winnerNickname={winnerNickname}/>
-{/if}
-{#if dpVisible}
-	<DrawingPage bondzio={bondzio} roomName={roomName} roomPassword={roomPassword} nickname={nickname} category={category} bind:isDrawingPlayer={isDrawingPlayer} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound}/>
+	<Buttons bind:bondzio={bondzio} callback={changeState} bind:roomName={roomName} bind:roomPassword={roomPassword} bind:nickname={nickname} bind:isDrawing={isDrawing}/>
+{:else if categoryDialogVisible}
+	{#if gamesPlayed == 0}
+		<ChooseCategoryDialog callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
+	{:else if gamesPlayed == 1}
+		<ChooseCategoryDialog1 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
+	{:else if gamesPlayed == 2}
+		<ChooseCategoryDialog2 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
+	{:else if gamesPlayed == 3}
+		<ChooseCategoryDialog3 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
+	{:else if gamesPlayed == 4}
+		<ChooseCategoryDialog4 callback={changeState} bind:category={category} isDrawing={isDrawing} isFirstRound={isFirstRound} winnerNickname={winnerNickname} isEnd={isEnd} bind:exitGame={exitGame}/>
+	{/if}
+{:else if dpVisible}
+	<DrawingPage bind:bondzio={bondzio} nickname={nickname} category={category} bind:isDrawing={isDrawing} bind:winnerNickname={winnerNickname} bind:exitGame={exitGame} callback={changeState} bind:isFirstRound={isFirstRound} bind:score={score}/>
 {/if}
 
 
